@@ -47,9 +47,124 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+// /////////////// ROUTES ////////////////////
+app.post("/register", function(req, res) {
+    db
+        .hashPassword(req.body.password)
+        .then(function(hashedPass) {
+            return db.register(
+                req.body.first,
+                req.body.last,
+                req.body.email,
+                hashedPass
+            );
+        })
+        .then(function(userId) {
+            console.log("userId is: ", userId);
+            req.session.userId = userId.rows[0].id;
+        })
+        .then(function() {
+            res.json({
+                success: true
+            });
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.json({
+                success: false
+            });
+        });
+});
+
+app.post("/login", function(req, res) {
+    let userId;
+    db
+        .getUserByEmail(req.body.email)
+        .then(data => {
+            userId = data.rows[0].id;
+            return db.checkPassword(req.body.password, data.rows[0].password);
+        })
+        .then(function(data) {
+            if (data == false) {
+                throw new Error();
+            } else {
+                req.session.userId = userId;
+                res.json({
+                    success: true
+                });
+            }
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.json({
+                success: false
+            });
+        });
+});
+
+app.post("/addevent", function(req, res) {
+    // console.log(req.body);
+    db
+        .addEvent(
+            req.session.userId,
+            req.body.name,
+            req.body.artist,
+            req.body.city,
+            req.body.dates,
+            req.body.category,
+            req.body.language,
+            req.body.subtitles,
+            req.body.url,
+            req.body.notes
+        )
+        .then(function() {
+            db.getAllEvents().then(({ rows }) =>
+                // console.log(rows));
+                res.json({
+                    data: rows,
+                    success: true
+                })
+            );
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.json({
+                success: false
+            });
+        });
+});
+
+app.get("/allevents", function(req, res) {
+    db
+        .getAllEvents()
+        .then(({ rows }) => {
+            // console.log(rows);
+            res.json(rows);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.get("/welcome", function(req, res) {
+    if (req.session.userId) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
+
+app.get("/logout", function(req, res) {
+    req.session = null;
+    res.redirect("/welcome");
+});
 
 app.get("*", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    if (!req.session.userId) {
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 
 app.listen(8080, function() {

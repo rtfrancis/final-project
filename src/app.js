@@ -1,9 +1,30 @@
 import React from "react";
+import { connect } from "react-redux";
+import { BrowserRouter, Link, Route } from "react-router-dom";
+import Nav from "./nav";
+import Events from "./events";
+import Profile from "./profile";
+import Search from "./search";
+import AddEvent from "./addevent";
 
-export default function App() {
-    return (
-        <div>
-            <h1>This is the app!</h1>
-        </div>
-    );
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <BrowserRouter>
+                <div>
+                    <Nav />
+                    <Route path="/events" component={Events} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/search" component={Search} />
+                    <Route path="/addevent" component={AddEvent} />
+                </div>
+            </BrowserRouter>
+        );
+    }
 }
+
+export default connect(null)(App);
+// export default connect(getStateFromRedux)(App);
