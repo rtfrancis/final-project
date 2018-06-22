@@ -37,3 +37,26 @@ export function addEvent(newEvent) {
             };
         });
 }
+
+export function eventDetails(id) {
+    return axios.get(`/singleeventinfo/${id}`).then(({ data }) => {
+        console.log("returned from single event", data);
+        return {
+            type: "INDIVIDUAL_EVENT",
+            data
+        };
+    });
+}
+
+export function addDate(obj) {
+    console.log(obj);
+    axios
+        .post("/addeventdate", {
+            eventId: obj.eventId,
+            date: obj.date
+        })
+        .then(data => console.log(data));
+    return {
+        type: "ADDING_DATE"
+    };
+}

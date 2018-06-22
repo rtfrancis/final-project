@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS dates;
+
+CREATE TABLE dates(
+    id SERIAL PRIMARY KEY,
+    event_id INTEGER NOT NULL,
+    event_date VARCHAR(100) NOT NULL
+)

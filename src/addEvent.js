@@ -5,19 +5,41 @@ import { addEvent } from "./actions";
 class AddEvent extends React.Component {
     constructor(props) {
         super(props);
-        this.addDate = this.addDate.bind(this);
+        this.state = {};
+        // this.addDate = this.addDate.bind(this);
         this.addNotes = this.addNotes.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        // this.getDateFields = this.getDateFields.bind(this);
     }
-    addDate() {
-        const dates = document.querySelector(".dateRange");
-        // const addButton = document.querySelector(".addDateButton");
-        // let deleteDate = document.createElement("div");
-        let newDate = document.createElement("span");
-        newDate.innerHTML = '<input type="date" name="date" />';
-        newDate.classList.add("newDate");
-        dates.appendChild(newDate);
-    }
+    // addDate() {
+    //     const dates = document.querySelector(".dateRange");
+    //     // const addButton = document.querySelector(".addDateButton");
+    //     // let deleteDate = document.createElement("div");
+    //     let newDate = document.createElement("span");
+    //     newDate.innerHTML = '<input type="date" name="date" />';
+    //     newDate.classList.add("newDate");
+    //     dates.appendChild(newDate);
+    // }
+    // getDateFields() {
+    //     console.log("date button");
+    //     const dateFields = [];
+    //     this.setState({
+    //         numDates: 1
+    //     });
+    //     let i = 0;
+    //     while (i < this.state.numDates) {
+    //         dateFields.push(
+    //             `<input
+    //             onChange={this.handleInput}
+    //             type="date"
+    //             name="date"
+    //             required
+    //         />`
+    //         );
+    //     }
+    //     console.log("dateFields", dateFields);
+    //     return dateFields;
+    // }
     addNotes() {
         const notes = document.querySelector(".notes");
         notes.style.display = "block";
@@ -50,8 +72,12 @@ class AddEvent extends React.Component {
                         />
                     </div>
                     <div>
-                        Event category:
-                        <select onChange={this.handleInput} name="category">
+                        Event category<span className="requiredStar">*</span>:
+                        <select
+                            onChange={this.handleInput}
+                            name="category"
+                            required
+                        >
                             <option>Please Select</option>
                             <option value="Theatre">Theatre</option>
                             <option value="Music">Music</option>
@@ -60,7 +86,7 @@ class AddEvent extends React.Component {
                         </select>
                     </div>
                     <div className="dateRange">
-                        Dates <span className="requiredStar">*</span>:
+                        Date <span className="requiredStar">*</span>:
                         <span>
                             <input
                                 onChange={this.handleInput}
@@ -69,10 +95,6 @@ class AddEvent extends React.Component {
                                 required
                             />
                         </span>
-                    </div>
-                    <div className="addDateButton" onClick={this.addDate}>
-                        {" "}
-                        + add date{" "}
                     </div>
 
                     <div>
@@ -140,6 +162,8 @@ class AddEvent extends React.Component {
                         Submit
                     </button>
                 </form>
+                <br />
+                <span className="requiredStar">*</span> indicates required field
             </div>
         );
     }

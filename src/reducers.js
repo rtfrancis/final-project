@@ -9,6 +9,18 @@ export default function(state = {}, action) {
             events: action.events
         });
     }
+    if (action.type == "INDIVIDUAL_EVENT") {
+        state = Object.assign({}, state, {
+            singleEvent: action.data
+        });
+    }
+
+    if (action.type == "ADDING_DATE") {
+        state = Object.assign({}, state, {
+            dates: action.data
+        });
+    }
+
     console.log("REDUX state: ", state);
     return state;
 }

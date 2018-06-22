@@ -21,8 +21,11 @@ class Events extends React.Component {
                         this.props.events.map(events => {
                             return (
                                 <div className="eachEvent" key={events.id}>
-                                    Event: {events.name} by: {events.artist} in:{" "}
-                                    {events.city} on: {events.dates}
+                                    {events.event_date}{" "}
+                                    <Link to={`/event/${events.id}`}>
+                                        Event: {events.name}
+                                    </Link>{" "}
+                                    by: {events.artist} in: {events.city}
                                 </div>
                             );
                         })}

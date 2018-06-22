@@ -24,7 +24,6 @@ module.exports.addEvent = function addEvent(
     name,
     artist,
     city,
-    dates,
     category,
     language,
     subtitles,
@@ -32,25 +31,26 @@ module.exports.addEvent = function addEvent(
     notes
 ) {
     return db.query(
-        `INSERT INTO events (user_id, name, artist, city, dates, category, language, subtitles, url, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id
+        `INSERT INTO events (user_id, name, artist, city, category, language, subtitles, url, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id
         `,
-        [
-            user_id,
-            name,
-            artist,
-            city,
-            dates,
-            category,
-            language,
-            subtitles,
-            url,
-            notes
-        ]
+        [user_id, name, artist, city, category, language, subtitles, url, notes]
+    );
+};
+
+module.exports.addDate = function addDate(id, date) {
+    return db.query(
+        `INSERT INTO dates (event_id, event_date) VALUES ($1, $2) RETURNING event_date`,
+        [id, date]
     );
 };
 
 module.exports.getAllEvents = function getAllEvents() {
-    return db.query(`SELECT * FROM events ORDER BY dates ASC`);
+    return db.query(`SELECT * FROM events
+                    LEFT JOIN dates ON events.id = event_id`);
+};
+
+module.exports.getEventDetails = function getEventDetails(id) {
+    return db.query(`SELECT * FROM events WHERE id = $1`, [id]);
 };
 
 // module.exports.addMoreEventInfo = function addMoreEventInfo(

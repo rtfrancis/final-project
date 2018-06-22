@@ -47,6 +47,7 @@ if (process.env.NODE_ENV != "production") {
 } else {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
+
 // /////////////// ROUTES ////////////////////
 app.post("/register", function(req, res) {
     db
@@ -104,27 +105,29 @@ app.post("/login", function(req, res) {
 
 app.post("/addevent", function(req, res) {
     // console.log(req.body);
-    db
+    return db
         .addEvent(
             req.session.userId,
             req.body.name,
             req.body.artist,
             req.body.city,
-            req.body.dates,
             req.body.category,
             req.body.language,
             req.body.subtitles,
             req.body.url,
             req.body.notes
         )
+        .then(({ rows }) => {
+            db.addDate(rows[0].id, req.body.dates);
+        })
         .then(function() {
-            db.getAllEvents().then(({ rows }) =>
-                // console.log(rows));
+            db.getAllEvents().then(({ rows }) => {
+                console.log(rows);
                 res.json({
                     data: rows,
                     success: true
-                })
-            );
+                });
+            });
         })
         .catch(function(err) {
             console.log(err);
@@ -140,6 +143,31 @@ app.get("/allevents", function(req, res) {
         .then(({ rows }) => {
             // console.log(rows);
             res.json(rows);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.get("/singleeventinfo/:id", function(req, res) {
+    console.log(req.params.id);
+    return db
+        .getEventDetails(req.params.id)
+        .then(({ rows }) => {
+            console.log("single event results: ", rows);
+            res.json(rows[0]);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.post("/addeventdate", function(req, res) {
+    return db
+        .addDate(req.body.eventId, req.body.date)
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows[0]);
         })
         .catch(function(err) {
             console.log(err);

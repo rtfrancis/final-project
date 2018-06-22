@@ -190,3 +190,12 @@
     background: grey;
     color: white;
 }
+
+.dateAdd {
+    border: 1px solid black;
+    width: 400px;
+    visibility: hidden;
+}
+.dateAdd input {
+    display: block;
+}

@@ -6,7 +6,6 @@ CREATE TABLE events(
     name VARCHAR(300) NOT NULL,
     artist VARCHAR(200) NOT NULL,
     city VARCHAR(100) NOT NULL,
-    dates TEXT NOT NULL,
     category VARCHAR(100),
     language VARCHAR(100),
     subtitles VARCHAR(100),
