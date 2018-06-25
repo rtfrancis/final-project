@@ -103,6 +103,13 @@ app.post("/login", function(req, res) {
         });
 });
 
+app.get("/loggedininfo", function(req, res) {
+    return db.loggedInUser(req.session.userId).then(({ rows }) => {
+        console.log("coming from logged in", rows[0]);
+        res.json(rows[0]);
+    });
+});
+
 app.post("/addevent", function(req, res) {
     // console.log(req.body);
     return db
@@ -155,7 +162,22 @@ app.get("/singleeventinfo/:id", function(req, res) {
         .getEventDetails(req.params.id)
         .then(({ rows }) => {
             console.log("single event results: ", rows);
-            res.json(rows[0]);
+            res.json({
+                single: rows[0],
+                dates: rows
+            });
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.get("/useruploadedevents", function(req, res) {
+    return db
+        .getUserUploadedEvents(req.session.userId)
+        .then(({ rows }) => {
+            console.log("RETURNED FROM USER EVENTS:", rows);
+            res.json(rows);
         })
         .catch(function(err) {
             console.log(err);
@@ -168,6 +190,53 @@ app.post("/addeventdate", function(req, res) {
         .then(({ rows }) => {
             console.log(rows);
             res.json(rows[0]);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.get("/editeventdetails/:id", function(req, res) {
+    console.log("THIS IS THE ID: ", req.params.id);
+    return db
+        .getEventDetails(req.params.id)
+        .then(({ rows }) => {
+            console.log("EDIT EVENT DETAILS:", rows[0]);
+            res.json(rows[0]);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.post("/editevent", function(req, res) {
+    console.log("GETTING SENT req.body", req.body);
+    db
+        .editEvent(
+            req.body.id,
+            req.body.name,
+            req.body.artist,
+            req.body.category,
+            req.body.language,
+            req.body.subtitles,
+            req.body.city,
+            req.body.url,
+            req.body.notes
+        )
+        .then(data => {
+            console.log(data);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.get("/eventsbycity/:city", function(req, res) {
+    console.log(req.params.city);
+    return db
+        .eventsByCity(req.params.city)
+        .then(({ rows }) => {
+            res.json(rows);
         })
         .catch(function(err) {
             console.log(err);

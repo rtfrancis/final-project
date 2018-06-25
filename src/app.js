@@ -7,10 +7,15 @@ import Profile from "./profile";
 import Search from "./search";
 import AddEvent from "./addevent";
 import EventDisplay from "./eventDisplay";
+import { loggedInUser } from "./actions";
+import EditEvent from "./editEvent";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
+    }
+    componentDidMount() {
+        this.props.dispatch(loggedInUser());
     }
     render() {
         return (
@@ -22,11 +27,18 @@ class App extends React.Component {
                     <Route path="/search" component={Search} />
                     <Route path="/addevent" component={AddEvent} />
                     <Route path="/event/:id" component={EventDisplay} />
+                    <Route path="/editevent/:id" component={EditEvent} />
                 </div>
             </BrowserRouter>
         );
     }
 }
 
-export default connect(null)(App);
+const getStateFromRedux = state => {
+    return {
+        loggedIn: state.loggedIn
+    };
+};
+
+export default connect(getStateFromRedux)(App);
 // export default connect(getStateFromRedux)(App);

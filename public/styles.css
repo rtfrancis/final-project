@@ -199,3 +199,33 @@
 .dateAdd input {
     display: block;
 }
+
+.eventCalendar {
+    float: right;
+}
+
+/* ///////////////// EDIT EVENT PAGE ////////////////////// */
+
+.editEvent {
+    border: 1px solid black;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+.editEvent h3 {
+    text-align: center;
+}
+.editEvent input {
+    height: 30px;
+    width: 150px;
+    outline: none;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+.editEvent select {
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
+    margin-left: 15px;
+}

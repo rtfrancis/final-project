@@ -19,6 +19,11 @@ module.exports.getUserByEmail = function getUserByEmail(email) {
         [email]
     );
 };
+
+module.exports.loggedInUser = function loggedInUser(id) {
+    return db.query(`SELECT id, first, last FROM users WHERE id = $1`, [id]);
+};
+
 module.exports.addEvent = function addEvent(
     user_id,
     name,
@@ -36,6 +41,13 @@ module.exports.addEvent = function addEvent(
         [user_id, name, artist, city, category, language, subtitles, url, notes]
     );
 };
+module.exports.getUserUploadedEvents = function getUserUploadedEvents(id) {
+    return db.query(
+        `SELECT * FROM events
+        WHERE user_id = $1`,
+        [id]
+    );
+};
 
 module.exports.addDate = function addDate(id, date) {
     return db.query(
@@ -50,7 +62,43 @@ module.exports.getAllEvents = function getAllEvents() {
 };
 
 module.exports.getEventDetails = function getEventDetails(id) {
-    return db.query(`SELECT * FROM events WHERE id = $1`, [id]);
+    return db.query(
+        `SELECT * FROM events
+                    LEFT JOIN dates ON events.id = event_id
+                    WHERE events.id = $1`,
+        [id]
+    );
+};
+
+module.exports.editEvent = function editEvent(
+    id,
+    name,
+    artist,
+    category,
+    language,
+    subtitles,
+    city,
+    url,
+    notes
+) {
+    return db.query(
+        `
+        UPDATE events
+        SET name = $2, artist = $3, category = $4, language = $5, subtitles = $6, city = $7, url = $8, notes = $9
+        WHERE id = $1
+        RETURNING id
+        `,
+        [id, name, artist, category, language, subtitles, city, url, notes]
+    );
+};
+
+module.exports.eventsByCity = function eventsByCity(city) {
+    return db.query(
+        `SELECT * FROM events 
+                    LEFT JOIN dates ON events.id = event_id
+                    WHERE city = $1`,
+        [city]
+    );
 };
 
 // module.exports.addMoreEventInfo = function addMoreEventInfo(

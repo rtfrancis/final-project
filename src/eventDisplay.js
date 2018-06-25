@@ -25,7 +25,7 @@ class EventDisplay extends React.Component {
         this.props.dispatch(eventDetails(this.props.match.params.id));
     }
     render() {
-        if (!this.props.singleEvent) {
+        if (!this.props.singleEvent && !this.props.dates) {
             return null;
         }
         return (
@@ -34,29 +34,21 @@ class EventDisplay extends React.Component {
                 <div>{this.props.singleEvent.name}</div>
                 <div>{this.props.singleEvent.artist}</div>
                 <div>{this.props.singleEvent.city}</div>
-                <div className="addDateButton" onClick={this.showAddDate}>
-                    Add another date
+                <div>{this.props.singleEvent.category}</div>
+                <div>{this.props.singleEvent.language}</div>
+                <div>{this.props.singleEvent.subtitles}</div>
+                <div>{this.props.singleEvent.notes}</div>
+                <div>
+                    <a href={this.props.singleEvent.url} target="_blank">
+                        Find out more here
+                    </a>
                 </div>
-                <div className="dateAdd">
-                    Add date:
-                    <input
-                        onChange={this.handleInput}
-                        type="date"
-                        name="date"
-                    />
-                    <button
-                        onClick={() =>
-                            this.props.dispatch(
-                                addDate({
-                                    eventId: this.props.singleEvent.id,
-                                    date: this.date
-                                })
-                            )
-                        }
-                    >
-                        Add
-                    </button>
-                    <button onClick={this.hideAddDate}>Done</button>
+                <div>
+                    Dates:
+                    {this.props.dates &&
+                        this.props.dates.map(date => {
+                            return <div key={date.id}>{date.event_date}</div>;
+                        })}
                 </div>
             </div>
         );
@@ -66,7 +58,7 @@ class EventDisplay extends React.Component {
 const getStateFromRedux = state => {
     console.log("STATE INSIDE EVENT DETAIL PAGE", state);
     return {
-        singleEvent: state.singleEvent,
+        singleEvent: state.eventDetail,
         dates: state.dates
     };
 };
