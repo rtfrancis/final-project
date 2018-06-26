@@ -1,10 +1,11 @@
 /* ////////////// WELCOME PAGE ///////////////////// */
 
-.welcomeHeading {
+#welcomeHeading {
     display: inline-block;
     margin-left: 15px;
     font-size: 35px;
     margin-top: 10px;
+    color: black;
 }
 /* ///////////////// NAV BAR ///////////////////////// */
 #navBar {
@@ -203,6 +204,16 @@
 .eventCalendar {
     float: right;
 }
+.citySelect {
+    text-align: center;
+}
+.citySelect select {
+    display: block;
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
 
 /* ///////////////// EDIT EVENT PAGE ////////////////////// */
 
@@ -228,4 +239,135 @@
     height: 40px;
     font-size: 15px;
     margin-left: 15px;
+}
+
+/* ///////////////// USER ADDED EVENTS //////////////// */
+.userEventsComponent {
+    /* width: 49%; */
+}
+.usersEvent {
+    border: 1px solid black;
+}
+
+/* /////////////// SINGLE EVENT PAGE /////////////////// */
+.singleEventDiv img {
+    max-width: 400px;
+    float: right;
+}
+.singleEventDates {
+    border: 1px solid black;
+}
+
+/* ////////////// USER PROFILE /////////////////// */
+.userProfileDiv {
+    border-bottom: 1px solid black;
+    height: 300px;
+}
+.profilePicDiv {
+    float: right;
+    /* max-width: 200px; */
+    max-height: 200px;
+}
+.profilePicDiv img {
+    max-height: 200px;
+}
+
+/* ///////////// EVENTS INTERESTED IN /////////////// */
+.interestedEventsDiv {
+    /* width: 49%; */
+    /* float: right; */
+    border: 1px solid black;
+    position: relative;
+    top: 0;
+}
+.profileComponentsContainer {
+    display: flex;
+    flex-direction: row;
+}
+#myOwnEvents {
+    display: inline-block;
+    width: 50%;
+    /* float: left; */
+}
+
+#myInterestedEvents {
+    display: inline-block;
+    width: 50%;
+    position: relative;
+    top: 0;
+}
+/* ///////////////////// APP COMPONENT ///////////////// */
+#featuredEvents {
+    text-align: center;
+    font-style: italic;
+}
+
+/* ///////////////////// CAROUSEL ////////////////////*/
+#carouselContainer {
+    position: relative;
+    overflow: hidden;
+    height: 600px;
+    box-sizing: border-box;
+}
+
+.plays {
+    position: absolute;
+    height: 600px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition-property: transform;
+    transform: translateX(100%);
+    transition-duration: 0s;
+}
+
+.plays img {
+    height: 600px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.plays.onscreen {
+    transform: translateX(0);
+    transition-duration: 1s;
+}
+
+.plays.exit {
+    transform: translateX(-100%);
+    transition-duration: 1s;
+}
+
+#dots {
+    position: absolute;
+    text-align: center;
+    bottom: 30px;
+    width: 100%;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 3px;
+}
+
+.active {
+    background: white;
+}
+
+.titleofplay {
+    width: 500px;
+    color: white;
+    font-size: 60px;
+    position: absolute;
+    top: 70px;
+    left: calc(50% - 250px);
+    z-index: 100;
+    text-align: center;
+    margin: 0 auto;
+    text-decoration: inherit;
+    font-style: italic;
 }

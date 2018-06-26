@@ -4,6 +4,7 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import Login from "./login";
 import Registration from "./registration";
 import About from "./about";
+import Events from "./events";
 
 export default function Welcome() {
     return (
@@ -17,7 +18,10 @@ export default function Welcome() {
                 <div>
                     <Route exact path="/welcome" component={Registration} />
                     <Route path="/login" component={Login} />
+                    <Route path="/events" component={Events} />
                 </div>
+
+                <Link to="/events">View as guest</Link>
             </div>
         </BrowserRouter>
     );

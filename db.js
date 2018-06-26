@@ -21,7 +21,12 @@ module.exports.getUserByEmail = function getUserByEmail(email) {
 };
 
 module.exports.loggedInUser = function loggedInUser(id) {
-    return db.query(`SELECT id, first, last FROM users WHERE id = $1`, [id]);
+    return db.query(
+        `SELECT users.id, first, last, photo FROM users
+                    LEFT JOIN profilephotos ON users.id = profilephotos.user_id
+                    WHERE users.id = $1`,
+        [id]
+    );
 };
 
 module.exports.addEvent = function addEvent(
@@ -51,20 +56,22 @@ module.exports.getUserUploadedEvents = function getUserUploadedEvents(id) {
 
 module.exports.addDate = function addDate(id, date) {
     return db.query(
-        `INSERT INTO dates (event_id, event_date) VALUES ($1, $2) RETURNING event_date`,
+        `INSERT INTO dates (event_id, event_date) VALUES ($1, $2) RETURNING id, event_id, event_date`,
         [id, date]
     );
 };
 
 module.exports.getAllEvents = function getAllEvents() {
     return db.query(`SELECT * FROM events
-                    LEFT JOIN dates ON events.id = event_id`);
+                    LEFT JOIN dates ON events.id = event_id
+                    ORDER BY event_date ASC`);
 };
 
 module.exports.getEventDetails = function getEventDetails(id) {
     return db.query(
         `SELECT * FROM events
                     LEFT JOIN dates ON events.id = event_id
+                    LEFT JOIN eventphotos ON events.id = eventphotos.event_id
                     WHERE events.id = $1`,
         [id]
     );
@@ -94,11 +101,61 @@ module.exports.editEvent = function editEvent(
 
 module.exports.eventsByCity = function eventsByCity(city) {
     return db.query(
-        `SELECT * FROM events 
+        `SELECT * FROM events
                     LEFT JOIN dates ON events.id = event_id
                     WHERE city = $1`,
         [city]
     );
+};
+
+module.exports.getAllEventCities = function getAllEventCities() {
+    return db.query(`SELECT DISTINCT city FROM events`);
+};
+
+module.exports.getDatesByEventId = function getDatesByEventId(eventId) {
+    return db.query(
+        `SELECT id, event_id, event_date FROM dates WHERE event_id = $1 ORDER BY event_date ASC`,
+        [eventId]
+    );
+};
+
+module.exports.deleteDate = function deleteDate(dateId) {
+    return db.query(`DELETE from dates WHERE id = $1`, [dateId]);
+};
+
+module.exports.addEventPhoto = function addEventPhoto(userId, eventId, photo) {
+    return db.query(
+        `INSERT INTO eventphotos (user_id, event_id, photo, status) VALUES ($1, $2, $3, 1)`,
+        [userId, eventId, photo]
+    );
+};
+
+module.exports.addProfilePhoto = function addProfilePhoto(userId, photo) {
+    return db.query(
+        `INSERT INTO profilephotos (user_id, photo, status) VALUES ($1, $2, 1)`,
+        [userId, photo]
+    );
+};
+
+module.exports.likeEvent = function likeEvent(userId, eventId, date) {
+    return db.query(
+        `INSERT INTO likedevents (user_id, event_id, event_date) VALUES ($1, $2, $3)`,
+        [userId, eventId, date]
+    );
+};
+
+module.exports.getMyLikedEvents = function getMyLikedEvents(userId) {
+    return db.query(
+        `SELECT likedevents.id, name, likedevents.event_date, events.id AS event_id FROM likedevents 
+        LEFT JOIN events ON events.id = likedevents.event_id
+        WHERE likedevents.user_id = $1
+        `,
+        [userId]
+    );
+};
+
+module.exports.deleteMyLikedEvent = function deleteMyLikedEvent(id) {
+    return db.query(`DELETE FROM likedevents WHERE id = $1`, [id]);
 };
 
 // module.exports.addMoreEventInfo = function addMoreEventInfo(

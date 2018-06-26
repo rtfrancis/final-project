@@ -24,7 +24,8 @@ export default function(state = {}, action) {
 
     if (action.type == "ADDING_DATE") {
         state = Object.assign({}, state, {
-            dates: action.data
+            dates: action.data,
+            eventDates: [...state.eventDates, action.data]
         });
     }
 
@@ -55,6 +56,42 @@ export default function(state = {}, action) {
     if (action.type == "EVENTS_BY_CITY") {
         state = Object.assign({}, state, {
             events: action.data
+        });
+    }
+
+    if (action.type == "ALL_CITIES") {
+        state = Object.assign({}, state, {
+            cities: action.data
+        });
+    }
+    if (action.type == "EVENT_DATES") {
+        state = Object.assign({}, state, {
+            eventDates: action.data
+        });
+    }
+
+    if (action.type == "DATE_DELETE") {
+        const copyEventDates = state.eventDates.filter(
+            date => date.id != action.dateId
+        );
+        console.log("COPY!", copyEventDates);
+        state = Object.assign({}, state, {
+            eventDates: copyEventDates
+        });
+    }
+
+    if (action.type == "LIKED_EVENTS") {
+        state = Object.assign({}, state, {
+            likedEvents: action.data
+        });
+    }
+
+    if (action.type == "LIKE_DELETED") {
+        const copyLikedEvents = state.likedEvents.filter(
+            eachEvent => eachEvent.id != action.id
+        );
+        state = Object.assign({}, state, {
+            likedEvents: copyLikedEvents
         });
     }
 

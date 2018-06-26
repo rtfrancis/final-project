@@ -36,7 +36,7 @@ export function addEvent(newEvent) {
         .then(({ data }) => {
             console.log("Getting back from DB: ", data);
             if (data.success) {
-                location.replace("/events");
+                location.replace("/profile");
             } else {
                 throw new Error();
             }
@@ -59,16 +59,19 @@ export function eventDetails(id) {
 }
 
 export function addDate(obj) {
-    console.log(obj);
-    axios
+    // console.log(obj);
+    return axios
         .post("/addeventdate", {
             eventId: obj.eventId,
             date: obj.date
         })
-        .then(data => console.log(data));
-    return {
-        type: "ADDING_DATE"
-    };
+        .then(({ data }) => {
+            console.log(data);
+            return {
+                type: "ADDING_DATE",
+                data
+            };
+        });
 }
 
 export function getEditEventDetails(id) {
@@ -131,6 +134,94 @@ export function eventsByCity(city) {
         return {
             type: "EVENTS_BY_CITY",
             data
+        };
+    });
+}
+
+export function getCities() {
+    return axios.get("/getlistofcities").then(({ data }) => {
+        console.log(data);
+        return {
+            type: "ALL_CITIES",
+            data
+        };
+    });
+}
+
+export function getEventDates(eventId) {
+    return axios.get(`/eventdatesbyid/${eventId}`).then(({ data }) => {
+        console.log(data);
+        return {
+            type: "EVENT_DATES",
+            data
+        };
+    });
+}
+
+export function deleteDate(dateId) {
+    console.log(dateId);
+    return axios.post(`/deleteeventdate`, { id: dateId }).then(({ data }) => {
+        console.log(data);
+        if (data.success) {
+            return {
+                type: "DATE_DELETE",
+                dateId
+            };
+        }
+    });
+}
+export function uploadEventImage(formData, id) {
+    return axios.post(`/uploadeventimage/${id}`, formData).then(({ data }) => {
+        console.log("TESTING TESTING:", data);
+        if (data.success) {
+            location.replace(`/event/${id}`);
+            return {
+                type: "IMAGE_UPLOADED"
+            };
+        }
+    });
+}
+
+export function uploadProfileImage(formData) {
+    return axios.post("/uploadprofileimage", formData).then(({ data }) => {
+        console.log("TESTING TESTING:", data);
+        if (data.success) {
+            location.replace("/profile");
+            return {
+                type: "IMAGE_UPLOADED"
+            };
+        }
+    });
+}
+
+export function likeEvent(eventId, eventDate) {
+    console.log(eventId, eventDate);
+    return axios
+        .post("/likethisevent", { eventId: eventId, date: eventDate })
+        .then(({ data }) => {
+            console.log(data);
+            return {
+                type: "LIKE_EVENT"
+            };
+        });
+}
+
+export function getMyLikedEvents() {
+    return axios.get("/getlikedevents").then(({ data }) => {
+        console.log(data);
+        return {
+            type: "LIKED_EVENTS",
+            data
+        };
+    });
+}
+
+export function deleteLikedEvent(id) {
+    return axios.post(`/deletethislikedevent/${id}`).then(({ data }) => {
+        console.log(data);
+        return {
+            type: "LIKE_DELETED",
+            id
         };
     });
 }

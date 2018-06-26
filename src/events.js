@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllEvents, eventsByCity } from "./actions";
+import { getAllEvents, eventsByCity, getCities } from "./actions";
 import Calendar from "./calendar";
 
 class Events extends React.Component {
@@ -10,6 +10,7 @@ class Events extends React.Component {
     }
     componentDidMount() {
         this.props.dispatch(getAllEvents());
+        this.props.dispatch(getCities());
     }
     render() {
         return (
@@ -17,19 +18,22 @@ class Events extends React.Component {
                 <Link to="/addevent">
                     <div className="addEventButton">+ Add an event</div>
                 </Link>
-                <div>
-                    Select the city youd like to view
+                <div className="citySelect">
+                    Select the city you'd like to view:
                     <select
                         onChange={e => {
                             this.props.dispatch(eventsByCity(e.target.value));
                         }}
                         name="city"
                     >
-                        <option>city</option>
-                        <option value="Berlin">Berlin</option>
-                        <option value="San Francisco">San Francisco</option>
-                        <option value="New York">New York</option>
-                        <option value="London">London</option>
+                        {this.props.cities &&
+                            this.props.cities.map(city => {
+                                return (
+                                    <option key={city.city} value={city.city}>
+                                        {city.city}
+                                    </option>
+                                );
+                            })}
                     </select>
                 </div>
                 <div className="eventCalendar">
@@ -40,7 +44,9 @@ class Events extends React.Component {
                         this.props.events.map(events => {
                             return (
                                 <div className="eachEvent" key={events.id}>
-                                    {events.event_date}{" "}
+                                    {new Date(events.event_date)
+                                        .toUTCString()
+                                        .slice(0, 12)}{" "}
                                     <Link to={`/event/${events.event_id}`}>
                                         Event: {events.name}
                                     </Link>{" "}
@@ -57,7 +63,8 @@ class Events extends React.Component {
 const getStateFromRedux = state => {
     console.log("REDUX STATE IN EVENTS", state);
     return {
-        events: state.events
+        events: state.events,
+        cities: state.cities
     };
 };
 

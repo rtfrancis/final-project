@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getUserUploadedEvents, addDate } from "./actions";
+import {
+    getUserUploadedEvents,
+    addDate,
+    getEventDates,
+    deleteDate
+} from "./actions";
 import { Link } from "react-router-dom";
 
 class UserUploadedEvents extends React.Component {
@@ -31,46 +36,22 @@ class UserUploadedEvents extends React.Component {
             return null;
         }
         return (
-            <div>
+            <div className="userEventsComponent">
                 <h3>Youve uploaded these events</h3>
                 {this.props.userEvents &&
                     this.props.userEvents.map(singleEvent => {
                         return (
-                            <div key={singleEvent.id}>
+                            <div key={singleEvent.id} className="usersEvent">
                                 {singleEvent.name}{" "}
                                 <Link to={`/editevent/${singleEvent.id}`}>
                                     <span>edit</span>
                                 </Link>{" "}
-                                <span>add dates</span>
-                                <div
-                                    className="addDateButton"
-                                    onClick={this.showAddDate}
-                                >
-                                    Add another date
-                                </div>
-                                <div className="dateAdd">
-                                    Add date:
-                                    <input
-                                        onChange={this.handleInput}
-                                        type="date"
-                                        name="date"
-                                    />
-                                    <button
-                                        onClick={() =>
-                                            this.props.dispatch(
-                                                addDate({
-                                                    eventId: singleEvent.id,
-                                                    date: this.date
-                                                })
-                                            )
-                                        }
-                                    >
-                                        Add
-                                    </button>
-                                    <button onClick={this.hideAddDate}>
-                                        Done
-                                    </button>
-                                </div>
+                                <Link to={`/uploadimage/${singleEvent.id}`}>
+                                    <p>Upload an event image</p>
+                                </Link>
+                                <Link to={`/editdates/${singleEvent.id}`}>
+                                    Edit/Delete Dates
+                                </Link>
                             </div>
                         );
                     })}
@@ -82,7 +63,8 @@ class UserUploadedEvents extends React.Component {
 const getStateFromRedux = state => {
     console.log("Events state", state);
     return {
-        userEvents: state.userEvents
+        userEvents: state.userEvents,
+        eventDates: state.eventDates
     };
 };
 

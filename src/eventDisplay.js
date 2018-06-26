@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { eventDetails, addDate } from "./actions";
+import { eventDetails, likeEvent } from "./actions";
 
 class EventDisplay extends React.Component {
     constructor(props) {
@@ -29,8 +29,9 @@ class EventDisplay extends React.Component {
             return null;
         }
         return (
-            <div>
-                <h1>SINGLE EVENT PAGE</h1>
+            <div className="singleEventDiv">
+                <h1>{this.props.singleEvent.name}</h1>
+                <img src={this.props.singleEvent.photo} />
                 <div>{this.props.singleEvent.name}</div>
                 <div>{this.props.singleEvent.artist}</div>
                 <div>{this.props.singleEvent.city}</div>
@@ -43,11 +44,28 @@ class EventDisplay extends React.Component {
                         Find out more here
                     </a>
                 </div>
-                <div>
+                <div className="singleEventDates">
                     Dates:
                     {this.props.dates &&
                         this.props.dates.map(date => {
-                            return <div key={date.id}>{date.event_date}</div>;
+                            return (
+                                <div key={date.event_date}>
+                                    {date.event_date}
+                                    <span
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            this.props.dispatch(
+                                                likeEvent(
+                                                    this.props.match.params.id,
+                                                    date.event_date
+                                                )
+                                            );
+                                        }}
+                                    >
+                                        Add to your events
+                                    </span>
+                                </div>
+                            );
                         })}
                 </div>
             </div>

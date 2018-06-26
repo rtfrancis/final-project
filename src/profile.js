@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import UserUploadedEvents from "./userevents";
+import { Link } from "react-router-dom";
+import InterestedEvents from "./interestedevents";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -13,9 +15,24 @@ class Profile extends React.Component {
         }
         return (
             <div>
-                <h1>Inside the profile page</h1>
-                {this.props.loggedIn.first}
-                <UserUploadedEvents />
+                <div className="userProfileDiv">
+                    <h1>Inside the profile page</h1>
+                    <div className="profilePicDiv">
+                        <img src={this.props.loggedIn.photo} />
+                        <Link to="/uploadprofileimage">
+                            <p>Upload a profile pic</p>
+                        </Link>
+                    </div>
+                    {this.props.loggedIn.first}
+                </div>
+                <div className="profileComponentsContainer">
+                    <div id="myOwnEvents">
+                        <UserUploadedEvents />
+                    </div>
+                    <div id="myInterestedEvents">
+                        <InterestedEvents />
+                    </div>
+                </div>
             </div>
         );
     }

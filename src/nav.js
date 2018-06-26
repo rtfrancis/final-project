@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 export default function nav() {
     return (
         <div id="navBar">
-            <span className="welcomeHeading">Kultur Konnect</span>
+            <Link to="/">
+                <span id="welcomeHeading">Kultur Konnect</span>
+            </Link>
             <span id="navLinks">
                 <Link to="/events">
                     <span className="nav">Events</span>
