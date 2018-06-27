@@ -9,6 +9,10 @@ class Search extends React.Component {
         return (
             <div>
                 <h1>Inside the search page</h1>
+                <div>City Search:</div>
+                <div>City and category</div>
+                <div>City and date</div>
+                <div>Artist or Instituion</div>
             </div>
         );
     }

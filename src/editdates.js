@@ -38,7 +38,9 @@ class EditEventDates extends React.Component {
                     this.props.eventDates.map(date => {
                         return (
                             <div key={date.id}>
-                                {date.event_date}{" "}
+                                {new Date(date.event_date)
+                                    .toUTCString()
+                                    .slice(0, 12)}{" "}
                                 <button
                                     onClick={e => {
                                         e.preventDefault();

@@ -10,7 +10,7 @@ class ProfileImageUploader extends React.Component {
         this.closeUploader = this.closeUploader.bind(this);
     }
     closeUploader() {
-        location.replace("/");
+        location.replace("/profile");
     }
     upload(e) {
         e.preventDefault();

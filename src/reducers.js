@@ -24,7 +24,7 @@ export default function(state = {}, action) {
 
     if (action.type == "ADDING_DATE") {
         state = Object.assign({}, state, {
-            dates: action.data,
+            // dates: [...state.dates, action.data],
             eventDates: [...state.eventDates, action.data]
         });
     }
@@ -79,6 +79,24 @@ export default function(state = {}, action) {
             eventDates: copyEventDates
         });
     }
+    if (action.type == "LIKE_EVENT") {
+        // const likedDate = state.dates.filter(
+        //     date => date.date_id == action.dateId
+        // );
+        //
+        // likedDate[0].status = 1;
+        // console.log(state.likedDates);
+        // console.log("IN REDUCER", likedDate);
+        // const copyDateList = state.dates.filter(
+        //     date => date.date_id != action.dateId
+        // );
+
+        console.log(action.data);
+        state = Object.assign({}, state, {
+            likedEvents: [...state.likedEvents, action.data]
+            // dates: [...copyDateList, likedDate[0]]
+        });
+    }
 
     if (action.type == "LIKED_EVENTS") {
         state = Object.assign({}, state, {
@@ -90,8 +108,34 @@ export default function(state = {}, action) {
         const copyLikedEvents = state.likedEvents.filter(
             eachEvent => eachEvent.id != action.id
         );
+
+        // const unlikedDate = state.dates.filter(
+        //     date => date.date_id == action.id
+        // );
+        // console.log(unlikedDate[0]);
+        // if (unlikedDate) {
+        //     unlikedDate[0].status = null;
+        // }
+        //
+        // console.log("REDUCER CHECK", action.id);
+        // console.log("one more time!", unlikedDate);
+        // const copyDates = state.dates.filter(date => date.date_id != action.id);
         state = Object.assign({}, state, {
             likedEvents: copyLikedEvents
+            // dates: [...copyDates, unlikedDate[0]]
+        });
+    }
+
+    if (action.type == "EVENT_DELETED") {
+        const copyUserEventList = state.userEvents.filter(
+            eachUserEvent => eachUserEvent.id != action.id
+        );
+        const copyLikedEventList = state.likedEvents.filter(
+            eachLikedEvent => eachLikedEvent.event_id != action.id
+        );
+        state = Object.assign({}, state, {
+            userEvents: copyUserEventList,
+            likedEvents: copyLikedEventList
         });
     }
 

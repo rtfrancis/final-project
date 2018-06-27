@@ -20,6 +20,7 @@ class App extends React.Component {
     }
     componentDidMount() {
         this.props.dispatch(loggedInUser());
+        console.log("2018-06-28" < "2018-06-29");
     }
     render() {
         return (

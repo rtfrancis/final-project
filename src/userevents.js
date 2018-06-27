@@ -1,33 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-    getUserUploadedEvents,
-    addDate,
-    getEventDates,
-    deleteDate
-} from "./actions";
+import { getUserUploadedEvents, deleteEvent } from "./actions";
 import { Link } from "react-router-dom";
 
 class UserUploadedEvents extends React.Component {
     constructor(props) {
         super(props);
-        this.showAddDate = this.showAddDate.bind(this);
-        this.hideAddDate = this.hideAddDate.bind(this);
+
         this.handleInput = this.handleInput.bind(this);
-    }
-    showAddDate() {
-        const dateAddBox = document.querySelector(".dateAdd");
-        dateAddBox.style.visibility = "visible";
-    }
-    hideAddDate() {
-        const dateAddBox = document.querySelector(".dateAdd");
-        dateAddBox.style.visibility = "hidden";
     }
     handleInput(e) {
         this[e.target.name] = e.target.value;
         console.log(this.date);
     }
-
     componentDidMount() {
         this.props.dispatch(getUserUploadedEvents());
     }
@@ -37,11 +22,16 @@ class UserUploadedEvents extends React.Component {
         }
         return (
             <div className="userEventsComponent">
-                <h3>Youve uploaded these events</h3>
+                <h1>Youve uploaded these events</h1>
                 {this.props.userEvents &&
                     this.props.userEvents.map(singleEvent => {
                         return (
                             <div key={singleEvent.id} className="usersEvent">
+                                <img
+                                    className="userAddedPhoto"
+                                    src={singleEvent.photo}
+                                />
+                                <br />
                                 {singleEvent.name}{" "}
                                 <Link to={`/editevent/${singleEvent.id}`}>
                                     <span>edit</span>
@@ -52,6 +42,16 @@ class UserUploadedEvents extends React.Component {
                                 <Link to={`/editdates/${singleEvent.id}`}>
                                     Edit/Delete Dates
                                 </Link>
+                                <br />
+                                <button
+                                    onClick={() =>
+                                        this.props.dispatch(
+                                            deleteEvent(singleEvent.id)
+                                        )
+                                    }
+                                >
+                                    Delete Event
+                                </button>
                             </div>
                         );
                     })}

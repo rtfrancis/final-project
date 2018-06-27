@@ -15,8 +15,9 @@ export default function nav() {
                     <span className="nav">Search</span>
                 </Link>
                 <Link to="/profile">
-                    <span className="nav">Profile</span>
+                    <span className="nav">My Events</span>
                 </Link>
+
                 <a href="/logout">
                     <span className="nav logoutButton">Logout</span>
                 </a>

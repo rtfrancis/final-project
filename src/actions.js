@@ -194,14 +194,19 @@ export function uploadProfileImage(formData) {
     });
 }
 
-export function likeEvent(eventId, eventDate) {
+export function likeEvent(eventId, eventDate, dateId) {
     console.log(eventId, eventDate);
     return axios
-        .post("/likethisevent", { eventId: eventId, date: eventDate })
+        .post("/likethisevent", {
+            eventId: eventId,
+            date: eventDate,
+            dateId: dateId
+        })
         .then(({ data }) => {
             console.log(data);
             return {
-                type: "LIKE_EVENT"
+                type: "LIKE_EVENT",
+                data
             };
         });
 }
@@ -223,5 +228,17 @@ export function deleteLikedEvent(id) {
             type: "LIKE_DELETED",
             id
         };
+    });
+}
+
+export function deleteEvent(id) {
+    console.log(id);
+    return axios.post(`/deleteentireevent/${id}`).then(({ data }) => {
+        if (data.success) {
+            return {
+                type: "EVENT_DELETED",
+                id
+            };
+        }
     });
 }

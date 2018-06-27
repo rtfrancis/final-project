@@ -241,44 +241,89 @@
     margin-left: 15px;
 }
 
-/* ///////////////// USER ADDED EVENTS //////////////// */
-.userEventsComponent {
-    /* width: 49%; */
-}
-.usersEvent {
-    border: 1px solid black;
-}
-
 /* /////////////// SINGLE EVENT PAGE /////////////////// */
 .singleEventDiv img {
     max-width: 400px;
     float: right;
 }
-.singleEventDates {
+.singleEventDatesDiv {
     border: 1px solid black;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.singleDate {
+    margin: 10px;
+    border: 1px solid black;
+    padding: 10px;
+    width: 150px;
+}
+.interestedButton {
+    border: 1px solid black;
+    width: 100px;
+    padding: 5px;
+    margin-left: 10px;
+    position: relative;
+    left: 30px;
 }
 
 /* ////////////// USER PROFILE /////////////////// */
 .userProfileDiv {
-    border-bottom: 1px solid black;
-    height: 300px;
+    /* border-bottom: 1px solid black; */
+    /* height: 200px; */
 }
 .profilePicDiv {
     float: right;
     /* max-width: 200px; */
-    max-height: 200px;
+    /* max-height: 200px; */
 }
 .profilePicDiv img {
-    max-height: 200px;
+    /* max-height: 200px; */
+}
+
+/* ///////////////// USER ADDED EVENTS //////////////// */
+.userEventsComponent {
+    /* width: 49%; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.usersEvent {
+    border: 1px solid black;
+    width: 200px;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.userAddedPhoto {
+    height: 100px;
+    /* float: left; */
+    /* clear: both; */
 }
 
 /* ///////////// EVENTS INTERESTED IN /////////////// */
 .interestedEventsDiv {
     /* width: 49%; */
     /* float: right; */
-    border: 1px solid black;
+
     position: relative;
     top: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.eachInterestedEvent {
+    border: 1px solid black;
+    width: 200px;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.likedEventPhoto {
+    height: 100px;
 }
 .profileComponentsContainer {
     display: flex;
@@ -370,4 +415,8 @@
     margin: 0 auto;
     text-decoration: inherit;
     font-style: italic;
+}
+
+.hideButton {
+    display: none;
 }

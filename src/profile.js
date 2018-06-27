@@ -15,16 +15,7 @@ class Profile extends React.Component {
         }
         return (
             <div>
-                <div className="userProfileDiv">
-                    <h1>Inside the profile page</h1>
-                    <div className="profilePicDiv">
-                        <img src={this.props.loggedIn.photo} />
-                        <Link to="/uploadprofileimage">
-                            <p>Upload a profile pic</p>
-                        </Link>
-                    </div>
-                    {this.props.loggedIn.first}
-                </div>
+                <div className="userProfileDiv" />
                 <div className="profileComponentsContainer">
                     <div id="myOwnEvents">
                         <UserUploadedEvents />
@@ -41,7 +32,8 @@ class Profile extends React.Component {
 const getStateFromRedux = state => {
     console.log("STATE INSIDE PROFILE", state);
     return {
-        loggedIn: state.loggedIn
+        loggedIn: state.loggedIn,
+        dates: state.dates
     };
 };
 

@@ -1,29 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-import { eventDetails, likeEvent } from "./actions";
+import { eventDetails, likeEvent, getMyLikedEvents } from "./actions";
+// import InterestedButton from "./interestedButton";
 
 class EventDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.handleInput = this.handleInput.bind(this);
-        this.showAddDate = this.showAddDate.bind(this);
-        this.hideAddDate = this.hideAddDate.bind(this);
     }
-    showAddDate() {
-        const dateAddBox = document.querySelector(".dateAdd");
-        dateAddBox.style.visibility = "visible";
-    }
-    hideAddDate() {
-        const dateAddBox = document.querySelector(".dateAdd");
-        dateAddBox.style.visibility = "hidden";
-    }
+    hide() {}
     handleInput(e) {
         this[e.target.name] = e.target.value;
         console.log(this.date);
     }
     componentDidMount() {
         this.props.dispatch(eventDetails(this.props.match.params.id));
+        this.props.dispatch(getMyLikedEvents());
     }
+
     render() {
         if (!this.props.singleEvent && !this.props.dates) {
             return null;
@@ -41,29 +35,35 @@ class EventDisplay extends React.Component {
                 <div>{this.props.singleEvent.notes}</div>
                 <div>
                     <a href={this.props.singleEvent.url} target="_blank">
-                        Find out more here
+                        {this.props.singleEvent.url}
                     </a>
                 </div>
-                <div className="singleEventDates">
-                    Dates:
+                <div className="singleEventDatesDiv">
                     {this.props.dates &&
                         this.props.dates.map(date => {
                             return (
-                                <div key={date.event_date}>
-                                    {date.event_date}
-                                    <span
-                                        onClick={e => {
-                                            e.preventDefault();
+                                <div className="singleDate" key={date.date_id}>
+                                    {new Date(date.event_date)
+                                        .toUTCString()
+                                        .slice(0, 12)}{" "}
+                                    <button
+                                        className="interestedButton"
+                                        ref={elem => {
+                                            this.addText = elem;
+                                        }}
+                                        onClick={() => {
                                             this.props.dispatch(
                                                 likeEvent(
-                                                    this.props.match.params.id,
-                                                    date.event_date
+                                                    date.event_id,
+                                                    date.event_date,
+                                                    date.date_id
                                                 )
                                             );
+                                            this.addText.style.display = "none";
                                         }}
                                     >
                                         Add to your events
-                                    </span>
+                                    </button>
                                 </div>
                             );
                         })}
@@ -77,7 +77,8 @@ const getStateFromRedux = state => {
     console.log("STATE INSIDE EVENT DETAIL PAGE", state);
     return {
         singleEvent: state.eventDetail,
-        dates: state.dates
+        dates: state.dates,
+        likedEvents: state.likedEvents
     };
 };
 

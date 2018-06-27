@@ -48,8 +48,9 @@ module.exports.addEvent = function addEvent(
 };
 module.exports.getUserUploadedEvents = function getUserUploadedEvents(id) {
     return db.query(
-        `SELECT * FROM events
-        WHERE user_id = $1`,
+        `SELECT events.id, name, photo FROM events
+        LEFT JOIN eventphotos ON events.id = eventphotos.event_id
+        WHERE events.user_id = $1`,
         [id]
     );
 };
@@ -69,9 +70,10 @@ module.exports.getAllEvents = function getAllEvents() {
 
 module.exports.getEventDetails = function getEventDetails(id) {
     return db.query(
-        `SELECT * FROM events
+        `SELECT events.id AS event_id, events.user_id, name, artist, city, category, language, subtitles, url, notes, dates.id AS date_id, dates.event_date, photo, likedevents.status  FROM events
                     LEFT JOIN dates ON events.id = event_id
                     LEFT JOIN eventphotos ON events.id = eventphotos.event_id
+                    LEFT JOIN likedevents ON likedevents.date_id = dates.id
                     WHERE events.id = $1`,
         [id]
     );
@@ -137,17 +139,18 @@ module.exports.addProfilePhoto = function addProfilePhoto(userId, photo) {
     );
 };
 
-module.exports.likeEvent = function likeEvent(userId, eventId, date) {
+module.exports.likeEvent = function likeEvent(userId, eventId, dateId, date) {
     return db.query(
-        `INSERT INTO likedevents (user_id, event_id, event_date) VALUES ($1, $2, $3)`,
-        [userId, eventId, date]
+        `INSERT INTO likedevents (user_id, event_id, date_id, event_date, status) VALUES ($1, $2, $3, $4, 1) RETURNING id, event_date, event_id, date_id`,
+        [userId, eventId, dateId, date]
     );
 };
 
 module.exports.getMyLikedEvents = function getMyLikedEvents(userId) {
     return db.query(
-        `SELECT likedevents.id, name, likedevents.event_date, events.id AS event_id FROM likedevents 
+        `SELECT likedevents.id, name, likedevents.event_date, photo, events.id AS event_id FROM likedevents
         LEFT JOIN events ON events.id = likedevents.event_id
+        LEFT JOIN eventphotos ON events.id = eventphotos.event_id
         WHERE likedevents.user_id = $1
         `,
         [userId]
@@ -158,18 +161,36 @@ module.exports.deleteMyLikedEvent = function deleteMyLikedEvent(id) {
     return db.query(`DELETE FROM likedevents WHERE id = $1`, [id]);
 };
 
-// module.exports.addMoreEventInfo = function addMoreEventInfo(
-//     event_id,
-//     language,
-//     subtitles,
-//     url,
-//     notes
-// ) {
-//     return db.query(
-//         `INSERT INTO eventextras (language, subtitles, url, notes) VALUES ($2, $3, $4, $5) WHERE event_id = $1`,
-//         [event_id, language, subtitles, url, notes]
-//     );
-// };
+module.exports.deleteEvent = function deleteEvent(eventId) {
+    return db.query(
+        `DELETE FROM events
+                    WHERE id = $1`,
+        [eventId]
+    );
+};
+
+module.exports.deleteDates = function deleteDates(eventId) {
+    return db.query(
+        `DELETE FROM dates
+                    WHERE event_id = $1`,
+        [eventId]
+    );
+};
+
+module.exports.deleteEventPhotos = function deleteEventPhotos(eventId) {
+    return db.query(
+        `DELETE FROM eventphotos
+                    WHERE event_id = $1`,
+        [eventId]
+    );
+};
+module.exports.deleteLikedEvents = function deleteLiked(eventId) {
+    return db.query(
+        `DELETE FROM likedevents
+                    WHERE event_id = $1`,
+        [eventId]
+    );
+};
 
 // /////////////////// PASSWORD FUNCTIONS /////////////////////////
 module.exports.hashPassword = function hashPassword(plainTextPassword) {

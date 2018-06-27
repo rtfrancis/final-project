@@ -333,11 +333,14 @@ app.post(
 
 app.post("/likethisevent", function(req, res) {
     return db
-        .likeEvent(req.session.userId, req.body.eventId, req.body.date)
-        .then(data => {
-            if (data) {
-                res.json({ success: true });
-            }
+        .likeEvent(
+            req.session.userId,
+            req.body.eventId,
+            req.body.dateId,
+            req.body.date
+        )
+        .then(({ rows }) => {
+            res.json(rows[0]);
         })
         .catch(function(err) {
             console.log(err);
@@ -363,6 +366,22 @@ app.post("/deletethislikedevent/:id", function(req, res) {
             if (data) {
                 res.json({ success: true });
             }
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
+app.post("/deleteentireevent/:id", function(req, res) {
+    Promise.all([
+        db.deleteEvent(req.params.id),
+        db.deleteDates(req.params.id),
+        db.deleteEventPhotos(req.params.id),
+        db.deleteLikedEvents(req.params.id)
+    ])
+        .then(() => {
+            console.log("success");
+            res.json({ success: true });
         })
         .catch(function(err) {
             console.log(err);

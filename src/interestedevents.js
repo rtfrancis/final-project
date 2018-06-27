@@ -17,12 +17,23 @@ class InterestedEvents extends React.Component {
                 {this.props.likedEvents &&
                     this.props.likedEvents.map(eachEvent => {
                         return (
-                            <div key={eachEvent.id}>
+                            <div
+                                key={eachEvent.id}
+                                className="eachInterestedEvent"
+                            >
+                                <img
+                                    className="likedEventPhoto"
+                                    src={eachEvent.photo}
+                                />
                                 <Link to={`/event/${eachEvent.event_id}`}>
                                     {eachEvent.name}
                                 </Link>
                                 {""}
-                                {eachEvent.event_date}
+                                <br />
+                                {new Date(eachEvent.event_date)
+                                    .toUTCString()
+                                    .slice(0, 12)}
+
                                 <button
                                     onClick={e => {
                                         e.preventDefault();
