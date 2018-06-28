@@ -1,3 +1,6 @@
+main {
+    font-family: "Montserrat", sans-serif;
+}
 /* ////////////// WELCOME PAGE ///////////////////// */
 
 #welcomeHeading {
@@ -20,6 +23,9 @@
     position: absolute;
     right: 20px;
     top: 28px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #navLinks a {
@@ -41,7 +47,7 @@
     background: grey;
     color: white;
     cursor: pointer;
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 #loginButton {
@@ -51,6 +57,33 @@
     top: 28px;
     height: 30px;
     width: 70px;
+}
+.addEventNav {
+    border: 1px solid black;
+    padding: 10px;
+    width: 120px;
+    margin: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.addEventNav:hover {
+    text-decoration: none;
+    background: grey;
+    color: white;
+}
+#searchBar {
+    width: 250px;
+    outline: none;
+}
+.searchResults {
+    width: 250px;
+    background-color: white;
+}
+.searchPhoto {
+    width: 50px;
 }
 
 /* /////////////REGISTRATION PAGE ////////////////// */
@@ -167,13 +200,23 @@
 }
 
 /* /////////////////// EVENT PAGE //////////////////// */
+.eventsPageComponent {
+    position: relative;
+    top: 20px;
+}
 .eventList {
     width: 700px;
     margin: 0 auto;
 }
 .eachEvent {
-    height: 40px;
+    display: flex;
+    height: 70px;
     border-bottom: 1px solid black;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .addEventButton {
     border: 1px solid black;
@@ -200,10 +243,34 @@
 .dateAdd input {
     display: block;
 }
-
-.eventCalendar {
-    float: right;
+#calMonth {
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
 }
+#navMonth {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#calPrev {
+}
+#calNext {
+}
+.eventCalendar {
+    /* float: right; */
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    /* border: 1px solid black; */
+}
+.calendarContainer td:hover {
+    color: red;
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
 .citySelect {
     text-align: center;
 }
@@ -213,6 +280,20 @@
     margin: 0px auto;
     margin-top: 10px;
     margin-bottom: 30px;
+}
+.citiesIn {
+    text-align: center;
+}
+
+.eventsInName:hover {
+    cursor: pointer;
+}
+.eventDate {
+    margin-right: 20px;
+    font-size: 20px;
+}
+.eventArtist {
+    margin-left: 10px;
 }
 
 /* ///////////////// EDIT EVENT PAGE ////////////////////// */
@@ -272,6 +353,9 @@
 .userProfileDiv {
     /* border-bottom: 1px solid black; */
     /* height: 200px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 .profilePicDiv {
     float: right;
@@ -283,7 +367,7 @@
 }
 
 /* ///////////////// USER ADDED EVENTS //////////////// */
-.userEventsComponent {
+.userEventsContainer {
     /* width: 49%; */
     display: flex;
     flex-direction: row;
@@ -299,12 +383,16 @@
 }
 .userAddedPhoto {
     height: 100px;
+
+    object-fit: cover;
+    object-position: center;
+    max-width: 200px;
     /* float: left; */
     /* clear: both; */
 }
 
 /* ///////////// EVENTS INTERESTED IN /////////////// */
-.interestedEventsDiv {
+.interestedContainer {
     /* width: 49%; */
     /* float: right; */
 
@@ -322,6 +410,7 @@
     text-align: center;
     margin-bottom: 10px;
 }
+
 .likedEventPhoto {
     height: 100px;
 }
@@ -331,13 +420,13 @@
 }
 #myOwnEvents {
     display: inline-block;
-    width: 50%;
+    width: 45%;
     /* float: left; */
 }
 
 #myInterestedEvents {
     display: inline-block;
-    width: 50%;
+    width: 45%;
     position: relative;
     top: 0;
 }
@@ -408,13 +497,16 @@
     color: white;
     font-size: 60px;
     position: absolute;
-    top: 70px;
+    top: 50px;
     left: calc(50% - 250px);
     z-index: 100;
     text-align: center;
     margin: 0 auto;
     text-decoration: inherit;
     font-style: italic;
+}
+.carouselArtist {
+    font-weight: 300;
 }
 
 .hideButton {

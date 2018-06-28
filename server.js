@@ -75,13 +75,14 @@ app.post("/register", function(req, res) {
             return db.register(
                 req.body.first,
                 req.body.last,
+                req.body.city,
                 req.body.email,
                 hashedPass
             );
         })
-        .then(function(userId) {
-            console.log("userId is: ", userId);
-            req.session.userId = userId.rows[0].id;
+        .then(function(data) {
+            // console.log("userId is: ", data);
+            req.session.userId = data.rows[0].id;
         })
         .then(function() {
             res.json({
@@ -124,7 +125,7 @@ app.post("/login", function(req, res) {
 
 app.get("/loggedininfo", function(req, res) {
     return db.loggedInUser(req.session.userId).then(({ rows }) => {
-        console.log("coming from logged in", rows[0]);
+        // console.log("coming from logged in", rows[0]);
         res.json(rows[0]);
     });
 });
@@ -181,6 +182,7 @@ app.get("/singleeventinfo/:id", function(req, res) {
         .getEventDetails(req.params.id)
         .then(({ rows }) => {
             console.log("single event results: ", rows);
+
             res.json({
                 single: rows[0],
                 dates: rows
@@ -195,7 +197,7 @@ app.get("/useruploadedevents", function(req, res) {
     return db
         .getUserUploadedEvents(req.session.userId)
         .then(({ rows }) => {
-            console.log("RETURNED FROM USER EVENTS:", rows);
+            // console.log("RETURNED FROM USER EVENTS:", rows);
             res.json(rows);
         })
         .catch(function(err) {
@@ -243,6 +245,7 @@ app.post("/editevent", function(req, res) {
         )
         .then(data => {
             console.log(data);
+            res.json({ success: true });
         })
         .catch(function(err) {
             console.log(err);
@@ -347,11 +350,24 @@ app.post("/likethisevent", function(req, res) {
         });
 });
 
+app.get("/eventsbydateandcity/:city/:date", function(req, res) {
+    console.log(req.body);
+    return db
+        .eventsByCityAndDate(req.params.city, req.params.date)
+        .then(({ rows }) => {
+            console.log(rows);
+            res.json(rows);
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
 app.get("/getlikedevents", function(req, res) {
     return db
         .getMyLikedEvents(req.session.userId)
         .then(({ rows }) => {
-            console.log("TESTING:", rows);
+            // console.log("TESTING:", rows);
             res.json(rows);
         })
         .catch(function(err) {
@@ -395,6 +411,18 @@ app.get("/getlistofcities", function(req, res) {
             res.json(rows);
         })
         .catch(function(err) {
+            console.log(err);
+        });
+});
+app.get("/searchresults/search", function(req, res) {
+    // console.log(req.params.term);
+    db
+        .userSearch(req.query.q)
+        .then(data => {
+            console.log(data.rows);
+            res.json(data.rows);
+        })
+        .catch(err => {
             console.log(err);
         });
 });

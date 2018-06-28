@@ -20,7 +20,9 @@ export function getAllEvents() {
 }
 
 export function addEvent(newEvent) {
-    console.log("testing", newEvent);
+    // console.log("testing", newEvent);
+    // const date = new Date(newEvent.date);
+    // console.log(date);
     return axios
         .post("/addevent", {
             name: newEvent.name,
@@ -37,6 +39,7 @@ export function addEvent(newEvent) {
             console.log("Getting back from DB: ", data);
             if (data.success) {
                 location.replace("/profile");
+                console.log("hey");
             } else {
                 throw new Error();
             }
@@ -111,6 +114,12 @@ export function editEvent(eventInfo) {
         })
         .then(({ data }) => {
             console.log("Getting back from DB: ", data);
+            if (data.success) {
+                location.replace("/profile");
+                console.log("hey");
+            } else {
+                throw new Error();
+            }
             return {
                 type: "EVENT_EDITED",
                 data
@@ -133,7 +142,8 @@ export function eventsByCity(city) {
         console.log(data);
         return {
             type: "EVENTS_BY_CITY",
-            data
+            data: data,
+            city: city
         };
     });
 }
@@ -241,4 +251,30 @@ export function deleteEvent(id) {
             };
         }
     });
+}
+
+export function eventsByDateAndCity(city, date) {
+    console.log("date and city", city, date);
+    return axios
+        .get(`/eventsbydateandcity/${city}/${date}`)
+        .then(({ data }) => {
+            console.log(data);
+            return {
+                type: "CITY_AND_DATE",
+                data
+            };
+        });
+}
+
+export function searchField(search) {
+    console.log(search);
+    return axios
+        .get(`/searchresults/search?q=${encodeURIComponent(search)}`)
+        .then(({ data }) => {
+            console.log("RESPONSE", data);
+            return {
+                type: "SEARCH_FIELD",
+                results: data
+            };
+        });
 }

@@ -68,49 +68,57 @@ class Carousel extends React.Component {
             <div>
                 <h1 id="featuredEvents">Featured Events:</h1>
                 <div id="carouselContainer">
-                    <div className="plays onscreen">
-                        <img src="assets/marina.jpg" alt="" />
-                        <div className="titleofplay">
-                            <p>Title of play</p>
-                            <p>performed by</p>
-                            <p>City</p>
+                    <Link to="/event/14">
+                        <div className="plays onscreen">
+                            <img src="assets/armine2.png" alt="" />
+                            <div className="titleofplay">
+                                <p>Armine, Sister</p>
+                                <p className="carouselArtist">Teatr Zar</p>
+                                <p className="carouselCity">Wrocław</p>
+                            </div>
                         </div>
-                    </div>
-                    <Link to="/event/5">
+                    </Link>
+                    <Link to="/event/24">
                         <div className="plays">
                             <img src="assets/endgame.jpg" alt="" />
 
                             <div className="titleofplay">
-                                <p>Title of play</p>
-                                <p>performed by</p>
-                                <p>City</p>
+                                <p>Endgame</p>
+                                <p>Teatro Real</p>
+                                <p>Madrid</p>
                             </div>
                         </div>
                     </Link>
-                    <div className="plays">
-                        <img src="assets/maxresdefault.jpg" alt="" />
-                        <div className="titleofplay">
-                            <p>Title of play</p>
-                            <p>performed by</p>
-                            <p>City</p>
+                    <Link to="/event/18">
+                        <div className="plays">
+                            <img src="assets/vangelo3.jpg" alt="" />
+                            <div className="titleofplay">
+                                <p>Vangelo</p>
+                                <p>Compagnia Pippo Delbono</p>
+                                <p>Rome</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="plays">
-                        <img src="assets/Robert-Wilson-Theatre-3.jpg" alt="" />
-                        <div className="titleofplay">
-                            <p>Title of play</p>
-                            <p>performed by</p>
-                            <p>City</p>
+                    </Link>
+                    <Link to="/event/23">
+                        <div className="plays">
+                            <img src="assets/trouble.jpg" alt="" />
+                            <div className="titleofplay">
+                                <p>Women in Trouble</p>
+                                <p>Volksbühne</p>
+                                <p>Berlin</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="plays">
-                        <img src="assets/wilsonmoon.jpg" alt="" />
-                        <div className="titleofplay">
-                            <p>Title of play</p>
-                            <p>performed by</p>
-                            <p>City</p>
+                    </Link>
+                    <Link to="/event/25">
+                        <div className="plays">
+                            <img src="assets/wilsonmoon.jpg" alt="" />
+                            <div className="titleofplay">
+                                <p>Pelléas and Mélisande</p>
+                                <p>Stadsschouwburg</p>
+                                <p>Amsterdam</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                     <div id="dots">
                         <div className="dot active" />
                         <div className="dot" />

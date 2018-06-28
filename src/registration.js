@@ -13,13 +13,14 @@ export default class Registration extends React.Component {
         this[e.target.name] = e.target.value;
     }
     registerUser() {
-        const { first, last, email, password, passwordConfirm } = this;
+        const { first, last, city, email, password, passwordConfirm } = this;
         // console.log(first, last, email, password, passwordConfirm);
         if (password == passwordConfirm) {
             axios
                 .post("/register", {
                     first,
                     last,
+                    city,
                     email,
                     password
                 })
@@ -58,6 +59,12 @@ export default class Registration extends React.Component {
                     type="text"
                     name="last"
                     placeholder="last"
+                />
+                <input
+                    onChange={this.handleInput}
+                    type="text"
+                    name="city"
+                    placeholder="city"
                 />
                 <input
                     onChange={this.handleInput}

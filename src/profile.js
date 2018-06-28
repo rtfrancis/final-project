@@ -15,8 +15,7 @@ class Profile extends React.Component {
         }
         return (
             <div>
-                <div className="userProfileDiv" />
-                <div className="profileComponentsContainer">
+                <div className="userProfileDiv">
                     <div id="myOwnEvents">
                         <UserUploadedEvents />
                     </div>

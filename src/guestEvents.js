@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getAllEvents, eventsByCity, getCities, loggedInUser } from "./actions";
 import Calendar from "./calendar";
 
-class Events extends React.Component {
+class guestEvents extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -25,8 +25,6 @@ class Events extends React.Component {
             <div className="eventsPageComponent">
                 <div className="citySelect">
                     Select the city you'd like to view:
-                    <br />
-                    <br />
                     <select
                         onChange={e => {
                             this.props.dispatch(eventsByCity(e.target.value));
@@ -47,7 +45,6 @@ class Events extends React.Component {
                 <div className="eventCalendar">
                     <Calendar city={this.props.city} />
                 </div>
-
                 <h2 className="citiesIn">
                     Events in{" "}
                     <span
@@ -59,26 +56,19 @@ class Events extends React.Component {
                         {this.props.city || this.props.loggedIn.city}
                     </span>
                 </h2>
-                <br />
+
                 <div className="eventList">
                     {this.props.events && this.props.events.length ? (
                         this.props.events.map(events => {
                             return (
                                 <div className="eachEvent" key={events.id}>
-                                    <span className="eventDate">
-                                        {new Date(events.event_date)
-                                            .toUTCString()
-                                            .slice(0, 12)}{" "}
-                                    </span>
-                                    <Link
-                                        to={`/event/${events.event_id ||
-                                            events.id}`}
-                                    >
+                                    {new Date(events.event_date)
+                                        .toUTCString()
+                                        .slice(0, 12)}{" "}
+                                    <Link to={`/event/${events.event_id}`}>
                                         {events.name}
                                     </Link>{" "}
-                                    <span className="eventArtist">
-                                        {events.artist}
-                                    </span>
+                                    by: {events.artist} in: {events.city}
                                 </div>
                             );
                         })
@@ -101,4 +91,4 @@ const getStateFromRedux = state => {
     };
 };
 
-export default connect(getStateFromRedux)(Events);
+export default connect(getStateFromRedux)(guestEvents);

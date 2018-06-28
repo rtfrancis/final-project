@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { eventsByDateAndCity, eventsByCity } from "./actions";
 
 class Calendar extends React.Component {
     constructor(props) {
@@ -7,22 +8,29 @@ class Calendar extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div id="ser_nav_month">
-                    <span id="ser_prev">&lt;&lt;</span>
-                    <span>Juni</span>
-                    <span id="ser_next">&gt;&gt;</span>
+            <div className="calendarContainer">
+                <div id="navMonth">
+                    <span id="calPrev">&lt;&lt;</span>
+                    <span
+                        id="calMonth"
+                        onClick={() =>
+                            this.props.dispatch(eventsByCity(this.props.city))
+                        }
+                    >
+                        July
+                    </span>
+                    <span id="calNext">&gt;&gt;</span>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <th>Mo</th>
-                            <th>Di</th>
-                            <th>Mi</th>
-                            <th>Do</th>
+                            <th>Tu</th>
+                            <th>We</th>
+                            <th>Th</th>
                             <th>Fr</th>
                             <th>Sa</th>
-                            <th>So</th>
+                            <th>Su</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,109 +39,390 @@ class Calendar extends React.Component {
                             <td className="leer" />
                             <td className="leer" />
                             <td className="leer" />
-                            <td>
-                                <span className="past">1</span>
-                            </td>
-                            <td>
-                                <span className="past">2</span>
-                            </td>
-                            <td>
-                                <span className="past">3</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span className="past">4</span>
-                            </td>
-                            <td>
-                                <span className="past">5</span>
-                            </td>
-                            <td>
-                                <span className="past">6</span>
-                            </td>
-                            <td>
-                                <span className="past">7</span>
-                            </td>
-                            <td>
-                                <span className="past">8</span>
-                            </td>
-                            <td>
-                                <span className="past">9</span>
-                            </td>
-                            <td>
-                                <span className="past">10</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span className="past">11</span>
-                            </td>
-                            <td>
-                                <span className="past">12</span>
-                            </td>
-                            <td>
-                                <span className="past">13</span>
-                            </td>
-                            <td>
-                                <span className="past">14</span>
-                            </td>
-                            <td>
-                                <span className="past">15</span>
-                            </td>
-                            <td>
-                                <span className="past">16</span>
-                            </td>
-                            <td>
-                                <span className="past">17</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span className="past">18</span>
-                            </td>
-                            <td>
-                                <span className="past">19</span>
-                            </td>
-                            <td>
-                                <span className="past">20</span>
-                            </td>
-                            <td>
-                                <span className="past">21</span>
-                            </td>
-                            <td>
-                                <span className="past">22</span>
-                            </td>
-                            <td>
-                                <span className="past">23</span>
-                            </td>
-                            <td>
-                                <span>24</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>25</span>
-                            </td>
-                            <td>
-                                <span>26</span>
-                            </td>
-                            <td>
-                                <span>27</span>
-                            </td>
-                            <td>
-                                <span>28</span>
-                            </td>
-                            <td>
-                                <span>29</span>
-                            </td>
-                            <td>
-                                <span>30</span>
-                            </td>
-                            <td className="leer" />
-                        </tr>
-                        <tr>
                             <td className="leer" />
                             <td className="leer" />
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-01"
+                                        )
+                                    )
+                                }
+                            >
+                                1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-02"
+                                        )
+                                    )
+                                }
+                            >
+                                2
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-03"
+                                        )
+                                    )
+                                }
+                            >
+                                3
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-04"
+                                        )
+                                    )
+                                }
+                            >
+                                4
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-05"
+                                        )
+                                    )
+                                }
+                            >
+                                5
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-06"
+                                        )
+                                    )
+                                }
+                            >
+                                6
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-07"
+                                        )
+                                    )
+                                }
+                            >
+                                7
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-08"
+                                        )
+                                    )
+                                }
+                            >
+                                8
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-09"
+                                        )
+                                    )
+                                }
+                            >
+                                9
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-10"
+                                        )
+                                    )
+                                }
+                            >
+                                10
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-11"
+                                        )
+                                    )
+                                }
+                            >
+                                11
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-12"
+                                        )
+                                    )
+                                }
+                            >
+                                12
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-13"
+                                        )
+                                    )
+                                }
+                            >
+                                13
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-14"
+                                        )
+                                    )
+                                }
+                            >
+                                14
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-15"
+                                        )
+                                    )
+                                }
+                            >
+                                15
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-16"
+                                        )
+                                    )
+                                }
+                            >
+                                16
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-17"
+                                        )
+                                    )
+                                }
+                            >
+                                17
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-18"
+                                        )
+                                    )
+                                }
+                            >
+                                18
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-19"
+                                        )
+                                    )
+                                }
+                            >
+                                19
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-20"
+                                        )
+                                    )
+                                }
+                            >
+                                20
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-21"
+                                        )
+                                    )
+                                }
+                            >
+                                21
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-22"
+                                        )
+                                    )
+                                }
+                            >
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-23"
+                                        )
+                                    )
+                                }
+                            >
+                                23
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-24"
+                                        )
+                                    )
+                                }
+                            >
+                                24
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-25"
+                                        )
+                                    )
+                                }
+                            >
+                                25
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-26"
+                                        )
+                                    )
+                                }
+                            >
+                                26
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-27"
+                                        )
+                                    )
+                                }
+                            >
+                                27
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-28"
+                                        )
+                                    )
+                                }
+                            >
+                                28
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-29"
+                                        )
+                                    )
+                                }
+                            >
+                                29
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-30"
+                                        )
+                                    )
+                                }
+                            >
+                                30
+                            </td>
+                            <td
+                                onClick={() =>
+                                    this.props.dispatch(
+                                        eventsByDateAndCity(
+                                            this.props.city,
+                                            "2018-07-31"
+                                        )
+                                    )
+                                }
+                            >
+                                31
+                            </td>
                             <td className="leer" />
                             <td className="leer" />
                             <td className="leer" />

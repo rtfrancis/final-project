@@ -14,39 +14,45 @@ class InterestedEvents extends React.Component {
         return (
             <div className="interestedEventsDiv">
                 <h1>Youre interested in these events</h1>
-                {this.props.likedEvents &&
-                    this.props.likedEvents.map(eachEvent => {
-                        return (
-                            <div
-                                key={eachEvent.id}
-                                className="eachInterestedEvent"
-                            >
-                                <img
-                                    className="likedEventPhoto"
-                                    src={eachEvent.photo}
-                                />
-                                <Link to={`/event/${eachEvent.event_id}`}>
-                                    {eachEvent.name}
-                                </Link>
-                                {""}
-                                <br />
-                                {new Date(eachEvent.event_date)
-                                    .toUTCString()
-                                    .slice(0, 12)}
-
-                                <button
-                                    onClick={e => {
-                                        e.preventDefault();
-                                        this.props.dispatch(
-                                            deleteLikedEvent(eachEvent.id)
-                                        );
-                                    }}
+                <div className="interestedContainer">
+                    {this.props.likedEvents &&
+                        this.props.likedEvents.map(eachEvent => {
+                            return (
+                                <div
+                                    key={eachEvent.id}
+                                    className="eachInterestedEvent"
                                 >
-                                    Remove from my events
-                                </button>
-                            </div>
-                        );
-                    })}
+                                    <img
+                                        className="likedEventPhoto"
+                                        src={eachEvent.photo}
+                                    />
+                                    <br />
+                                    <br />
+                                    <Link to={`/event/${eachEvent.event_id}`}>
+                                        {eachEvent.name}
+                                    </Link>
+                                    {""}
+                                    <br />
+                                    <br />
+                                    {new Date(eachEvent.event_date)
+                                        .toUTCString()
+                                        .slice(0, 12)}
+                                    <br />
+                                    <br />
+                                    <button
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            this.props.dispatch(
+                                                deleteLikedEvent(eachEvent.id)
+                                            );
+                                        }}
+                                    >
+                                        Remove from my events
+                                    </button>
+                                </div>
+                            );
+                        })}
+                </div>
             </div>
         );
     }

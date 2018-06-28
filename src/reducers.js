@@ -11,14 +11,22 @@ export default function(state = {}, action) {
         });
     }
     if (action.type == "ALL_EVENTS") {
+        console.log("ALL EVENTS:", action.events);
         state = Object.assign({}, state, {
             events: action.events
         });
     }
     if (action.type == "INDIVIDUAL_EVENT") {
+        const data = action.dates;
+        const copyDate = data.filter(
+            each =>
+                new Date(each.event_date).getTime() >
+                new Date(Date.now()).getTime()
+        );
+
         state = Object.assign({}, state, {
             eventDetail: action.eventDetail,
-            dates: action.dates
+            dates: copyDate
         });
     }
 
@@ -54,8 +62,17 @@ export default function(state = {}, action) {
         });
     }
     if (action.type == "EVENTS_BY_CITY") {
+        // console.log("EVENTS BY CITY:", action.data);
+        const data = action.data;
+        const copyEvents = data.filter(
+            each =>
+                new Date(each.event_date).getTime() >
+                new Date(Date.now()).getTime()
+        );
+        // console.log("copyEvents:", copyEvents);
         state = Object.assign({}, state, {
-            events: action.data
+            events: copyEvents,
+            city: action.city
         });
     }
 
@@ -74,7 +91,7 @@ export default function(state = {}, action) {
         const copyEventDates = state.eventDates.filter(
             date => date.id != action.dateId
         );
-        console.log("COPY!", copyEventDates);
+        // console.log("COPY!", copyEventDates);
         state = Object.assign({}, state, {
             eventDates: copyEventDates
         });
@@ -91,7 +108,7 @@ export default function(state = {}, action) {
         //     date => date.date_id != action.dateId
         // );
 
-        console.log(action.data);
+        // console.log(action.data);
         state = Object.assign({}, state, {
             likedEvents: [...state.likedEvents, action.data]
             // dates: [...copyDateList, likedDate[0]]
@@ -125,6 +142,11 @@ export default function(state = {}, action) {
             // dates: [...copyDates, unlikedDate[0]]
         });
     }
+    if (action.type == "CITY_AND_DATE") {
+        state = Object.assign({}, state, {
+            events: action.data
+        });
+    }
 
     if (action.type == "EVENT_DELETED") {
         const copyUserEventList = state.userEvents.filter(
@@ -136,6 +158,36 @@ export default function(state = {}, action) {
         state = Object.assign({}, state, {
             userEvents: copyUserEventList,
             likedEvents: copyLikedEventList
+        });
+    }
+
+    if (action.type == "SEARCH_FIELD") {
+        // console.log("THIS IS LOGGED:", state.userList)
+        // let newList =
+        //     state.userList &&
+        //     state.userList.filter(user =>
+        //         user.first
+        //             .toLowerCase()
+        //             .startsWith(action.searchTerm.toLowerCase(), 0)
+        //     );
+        let box = document.querySelector(".searchResults");
+        if (action.results == []) {
+            box.style.display = "none";
+        } else {
+            box.style.display = "block";
+        }
+        // console.log("CURRENTLY GETTING:", action);
+        if (action.results.length > 10) {
+            box.style.display = "none";
+        } else {
+            box.style.display = "block";
+        }
+        // if (action.userList == []) {
+        //     noResults = "No results";
+        // }
+        // console.log("Length:,", newList.length);
+        state = Object.assign({}, state, {
+            searchResults: action.results
         });
     }
 

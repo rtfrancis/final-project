@@ -6,10 +6,16 @@ var db = spicedPg(
         "postgres:postgres:postgres@localhost:5432/kunst"
 );
 
-module.exports.register = function register(first, last, email, password) {
+module.exports.register = function register(
+    first,
+    last,
+    city,
+    email,
+    password
+) {
     return db.query(
-        `INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) RETURNING id`,
-        [first || null, last || null, email || null, password || null]
+        `INSERT INTO users (first, last, city, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING id, first, last, city`,
+        [first || null, last || null, city, email || null, password || null]
     );
 };
 
@@ -22,7 +28,7 @@ module.exports.getUserByEmail = function getUserByEmail(email) {
 
 module.exports.loggedInUser = function loggedInUser(id) {
     return db.query(
-        `SELECT users.id, first, last, photo FROM users
+        `SELECT users.id, first, last, city, photo FROM users
                     LEFT JOIN profilephotos ON users.id = profilephotos.user_id
                     WHERE users.id = $1`,
         [id]
@@ -74,7 +80,8 @@ module.exports.getEventDetails = function getEventDetails(id) {
                     LEFT JOIN dates ON events.id = event_id
                     LEFT JOIN eventphotos ON events.id = eventphotos.event_id
                     LEFT JOIN likedevents ON likedevents.date_id = dates.id
-                    WHERE events.id = $1`,
+                    WHERE events.id = $1
+                    ORDER BY dates.event_date ASC`,
         [id]
     );
 };
@@ -105,7 +112,8 @@ module.exports.eventsByCity = function eventsByCity(city) {
     return db.query(
         `SELECT * FROM events
                     LEFT JOIN dates ON events.id = event_id
-                    WHERE city = $1`,
+                    WHERE city = $1
+                    ORDER BY event_date ASC`,
         [city]
     );
 };
@@ -152,6 +160,7 @@ module.exports.getMyLikedEvents = function getMyLikedEvents(userId) {
         LEFT JOIN events ON events.id = likedevents.event_id
         LEFT JOIN eventphotos ON events.id = eventphotos.event_id
         WHERE likedevents.user_id = $1
+        ORDER BY likedevents.event_date ASC
         `,
         [userId]
     );
@@ -189,6 +198,25 @@ module.exports.deleteLikedEvents = function deleteLiked(eventId) {
         `DELETE FROM likedevents
                     WHERE event_id = $1`,
         [eventId]
+    );
+};
+
+module.exports.eventsByCityAndDate = function eventsByCityAndDate(city, date) {
+    return db.query(
+        `SELECT events.id, name, artist, event_date FROM events
+        LEFT JOIN dates ON events.id = event_id
+        WHERE city = $1 AND event_date = $2
+    `,
+        [city, date]
+    );
+};
+
+module.exports.userSearch = function userSearch(search) {
+    return db.query(
+        `SELECT events.id, name, artist, photo FROM events
+        LEFT JOIN eventphotos ON events.id = eventphotos.event_id
+                    WHERE name ILIKE  $1 OR artist ILIKE  $1`,
+        [search + "%"]
     );
 };
 

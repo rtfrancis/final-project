@@ -23,6 +23,9 @@ class App extends React.Component {
         console.log("2018-06-28" < "2018-06-29");
     }
     render() {
+        if (!this.props.loggedIn) {
+            return null;
+        }
         return (
             <BrowserRouter>
                 <div>
