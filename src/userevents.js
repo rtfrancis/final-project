@@ -22,7 +22,9 @@ class UserUploadedEvents extends React.Component {
         }
         return (
             <div className="userEventsDiv">
-                <h1>Youve uploaded these events</h1>
+                <span className="headlineProfile">
+                    You've uploaded these events:
+                </span>
                 <div className="userEventsContainer">
                     {this.props.userEvents &&
                         this.props.userEvents.map(singleEvent => {
@@ -31,27 +33,45 @@ class UserUploadedEvents extends React.Component {
                                     key={singleEvent.id}
                                     className="usersEvent"
                                 >
-                                    <img
-                                        className="userAddedPhoto"
-                                        src={singleEvent.photo}
-                                    />
+                                    <Link
+                                        className="eventPhotoLink"
+                                        to={`/event/${singleEvent.id}`}
+                                    >
+                                        <img
+                                            className="userAddedPhoto"
+                                            src={singleEvent.photo}
+                                        />
+                                    </Link>
                                     <br />
-                                    <Link to={`/event/${singleEvent.id}`}>
+                                    <Link
+                                        className="nameLink"
+                                        to={`/event/${singleEvent.id}`}
+                                    >
                                         {singleEvent.name}
                                     </Link>{" "}
                                     <br />
                                     <br />
-                                    <Link to={`/editevent/${singleEvent.id}`}>
-                                        <span>edit</span>
+                                    <Link
+                                        className="userEditButtons"
+                                        to={`/editevent/${singleEvent.id}`}
+                                    >
+                                        <span>Edit Event</span>
                                     </Link>{" "}
-                                    <Link to={`/uploadimage/${singleEvent.id}`}>
+                                    <Link
+                                        className="imageButton userEditButtons"
+                                        to={`/uploadimage/${singleEvent.id}`}
+                                    >
                                         <p>Upload an event image</p>
                                     </Link>
-                                    <Link to={`/editdates/${singleEvent.id}`}>
-                                        Edit/Delete Dates
+                                    <Link
+                                        className="userEditButtons"
+                                        to={`/editdates/${singleEvent.id}`}
+                                    >
+                                        Add/Delete Dates
                                     </Link>
                                     <br />
-                                    <button
+                                    <span
+                                        className="userEditButtons"
                                         onClick={() =>
                                             this.props.dispatch(
                                                 deleteEvent(singleEvent.id)
@@ -59,7 +79,7 @@ class UserUploadedEvents extends React.Component {
                                         }
                                     >
                                         Delete Event
-                                    </button>
+                                    </span>
                                 </div>
                             );
                         })}

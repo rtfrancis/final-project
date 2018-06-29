@@ -25,7 +25,7 @@ class Search extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div id="searchDiv">
                 <input
                     id="searchBar"
                     type="text"
@@ -50,7 +50,10 @@ class Search extends React.Component {
                                     }}
                                     to={`/event/${result.id}`}
                                 >
-                                    <div className="userResult" key={result.id}>
+                                    <div
+                                        className="eachSearchResult"
+                                        key={result.id}
+                                    >
                                         <img
                                             className="searchPhoto"
                                             src={
@@ -58,7 +61,7 @@ class Search extends React.Component {
                                                 "/assets/user.png"
                                             }
                                         />
-                                        {result.name} {result.artist}
+                                        {result.name} // {result.artist}
                                     </div>
                                 </Link>
                             );

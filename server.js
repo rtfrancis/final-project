@@ -176,6 +176,18 @@ app.get("/allevents", function(req, res) {
         });
 });
 
+app.get("/guestview", function(req, res) {
+    Promise.all([db.getAllEvents(), db.getAllEventCities()])
+        .then(function([events, cities]) {
+            console.log("EVENTS", events.rows);
+            console.log("CITIES", cities.rows);
+            res.json({ events: events.rows, cities: cities.rows });
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+});
+
 app.get("/singleeventinfo/:id", function(req, res) {
     console.log(req.params.id);
     return db

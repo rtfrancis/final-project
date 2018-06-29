@@ -1,39 +1,53 @@
 import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getAllEvents, eventsByCity, getCities, loggedInUser } from "./actions";
-import Calendar from "./calendar";
 
-class guestEvents extends React.Component {
+import { Link } from "react-router-dom";
+import axios from "./axios";
+
+export default class guestEvents extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {};
+        this.eventsByCity = this.eventsByCity.bind(this);
     }
-    UNSAFE_componentWillMount() {
-        this.props.dispatch(loggedInUser());
+    eventsByCity(e) {
+        const citySearch = e.target.value;
+        console.log(citySearch);
+        return axios.get(`/eventsbycity/${citySearch}`).then(({ data }) => {
+            console.log(data);
+            this.setState({
+                events: data
+            });
+        });
     }
     componentDidMount() {
         // this.props.dispatch(getAllEvents());
-
-        this.props.dispatch(getCities());
-        this.props.dispatch(eventsByCity(this.props.loggedIn.city));
+        console.log("TESTING");
+        return axios.get("/guestview").then(({ data }) => {
+            console.log(data);
+            this.setState({
+                cities: data.cities,
+                events: data.events
+            });
+        });
     }
     render() {
-        if (!this.props.loggedIn && !this.props.cities && !this.props.events) {
+        if (!this.state.cities) {
             return null;
         }
         return (
-            <div className="eventsPageComponent">
+            <div className="guestEventView">
                 <div className="citySelect">
                     Select the city you'd like to view:
+                    <br />
+                    <br />
                     <select
-                        onChange={e => {
-                            this.props.dispatch(eventsByCity(e.target.value));
-                        }}
+                        id="selectButton"
                         name="city"
+                        onChange={this.eventsByCity}
                     >
                         <option>Select City</option>
-                        {this.props.cities &&
-                            this.props.cities.map(city => {
+                        {this.state.cities &&
+                            this.state.cities.map(city => {
                                 return (
                                     <option key={city.city} value={city.city}>
                                         {city.city}
@@ -42,33 +56,27 @@ class guestEvents extends React.Component {
                             })}
                     </select>
                 </div>
-                <div className="eventCalendar">
-                    <Calendar city={this.props.city} />
-                </div>
-                <h2 className="citiesIn">
-                    Events in{" "}
-                    <span
-                        className="eventsInName"
-                        onClick={() =>
-                            this.props.dispatch(eventsByCity(this.props.city))
-                        }
-                    >
-                        {this.props.city || this.props.loggedIn.city}
-                    </span>
-                </h2>
 
                 <div className="eventList">
-                    {this.props.events && this.props.events.length ? (
-                        this.props.events.map(events => {
+                    {this.state.events && this.state.events.length ? (
+                        this.state.events.map(events => {
                             return (
                                 <div className="eachEvent" key={events.id}>
-                                    {new Date(events.event_date)
-                                        .toUTCString()
-                                        .slice(0, 12)}{" "}
-                                    <Link to={`/event/${events.event_id}`}>
+                                    <span className="eventDate">
+                                        {new Date(events.event_date)
+                                            .toUTCString()
+                                            .slice(0, 12)}{" "}
+                                    </span>
+                                    <Link
+                                        className="nameLink"
+                                        to={`/event/${events.event_id ||
+                                            events.id}`}
+                                    >
                                         {events.name}
                                     </Link>{" "}
-                                    by: {events.artist} in: {events.city}
+                                    <span className="eventArtist">
+                                        {events.artist}
+                                    </span>
                                 </div>
                             );
                         })
@@ -80,15 +88,3 @@ class guestEvents extends React.Component {
         );
     }
 }
-
-const getStateFromRedux = state => {
-    console.log("REDUX STATE IN EVENTS", state);
-    return {
-        events: state.events,
-        cities: state.cities,
-        loggedIn: state.loggedIn,
-        city: state.city
-    };
-};
-
-export default connect(getStateFromRedux)(guestEvents);

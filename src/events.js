@@ -71,10 +71,13 @@ class Events extends React.Component {
                                             .slice(0, 12)}{" "}
                                     </span>
                                     <Link
+                                        className="nameLink"
                                         to={`/event/${events.event_id ||
                                             events.id}`}
                                     >
-                                        {events.name}
+                                        <span className="eventName">
+                                            {events.name}
+                                        </span>
                                     </Link>{" "}
                                     <span className="eventArtist">
                                         {events.artist}

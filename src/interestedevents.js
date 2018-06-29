@@ -13,7 +13,9 @@ class InterestedEvents extends React.Component {
     render() {
         return (
             <div className="interestedEventsDiv">
-                <h1>Youre interested in these events</h1>
+                <span className="headlineProfile">
+                    You're interested in these events:
+                </span>
                 <div className="interestedContainer">
                     {this.props.likedEvents &&
                         this.props.likedEvents.map(eachEvent => {
@@ -22,13 +24,18 @@ class InterestedEvents extends React.Component {
                                     key={eachEvent.id}
                                     className="eachInterestedEvent"
                                 >
-                                    <img
-                                        className="likedEventPhoto"
-                                        src={eachEvent.photo}
-                                    />
-                                    <br />
-                                    <br />
                                     <Link to={`/event/${eachEvent.event_id}`}>
+                                        <img
+                                            className="likedEventPhoto"
+                                            src={eachEvent.photo}
+                                        />
+                                    </Link>
+                                    <br />
+                                    <br />
+                                    <Link
+                                        className="nameLink"
+                                        to={`/event/${eachEvent.event_id}`}
+                                    >
                                         {eachEvent.name}
                                     </Link>
                                     {""}
@@ -39,7 +46,8 @@ class InterestedEvents extends React.Component {
                                         .slice(0, 12)}
                                     <br />
                                     <br />
-                                    <button
+                                    <span
+                                        className="userEditButtons"
                                         onClick={e => {
                                             e.preventDefault();
                                             this.props.dispatch(
@@ -48,7 +56,7 @@ class InterestedEvents extends React.Component {
                                         }}
                                     >
                                         Remove from my events
-                                    </button>
+                                    </span>
                                 </div>
                             );
                         })}

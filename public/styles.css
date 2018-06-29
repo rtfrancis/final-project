@@ -1,6 +1,9 @@
 main {
     font-family: "Montserrat", sans-serif;
 }
+input {
+    outline: none;
+}
 /* ////////////// WELCOME PAGE ///////////////////// */
 
 #welcomeHeading {
@@ -9,7 +12,14 @@ main {
     font-size: 35px;
     margin-top: 10px;
     color: black;
+    text-decoration: none;
+    font-weight: 300;
 }
+.welcomeHeading {
+    color: black;
+    text-decoration: none;
+}
+
 /* ///////////////// NAV BAR ///////////////////////// */
 #navBar {
     border-bottom: 1px solid black;
@@ -50,6 +60,20 @@ main {
     /* text-decoration: underline; */
 }
 
+#registrationButton {
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#registrationButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+
 #loginButton {
     display: inline-block;
     position: absolute;
@@ -57,7 +81,18 @@ main {
     top: 28px;
     height: 30px;
     width: 70px;
+    color: black;
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
 }
+#loginButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+
 .addEventNav {
     border: 1px solid black;
     padding: 10px;
@@ -78,12 +113,28 @@ main {
     width: 250px;
     outline: none;
 }
+#searchDiv {
+    z-index: 1000;
+}
 .searchResults {
     width: 250px;
     background-color: white;
+    font-size: 12px;
+    z-index: 100000px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .searchPhoto {
-    width: 50px;
+    width: 45px;
+    height: 45px;
+    margin-right: 5px;
+    object-fit: cover;
+    object-position: center;
+}
+.eachSearchResult {
+    height: 50px;
+    background-color: white;
 }
 
 /* /////////////REGISTRATION PAGE ////////////////// */
@@ -91,34 +142,79 @@ main {
     display: block;
     margin: 0 auto;
     margin-bottom: 5px;
+    width: 150px;
+    height: 25px;
+    text-align: center;
 }
 
 #registrationPage {
     border: 1px solid black;
-    width: 300px;
-    height: 400px;
+    width: 500px;
+    height: 450px;
     position: absolute;
-    right: 20px;
+
+    left: calc(50% - 250px);
     text-align: center;
     top: 100px;
+    font-weight: 300;
+    padding-top: 30px;
+}
+.headline {
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: block;
+}
+#registrationButton {
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#registrationButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
 }
 
+/* /////////////////GUEST EVENTS ////////////////////// */
+.guestEventView {
+    margin-top: 50px;
+}
 /* ///////////////// LOGIN DIV /////////////////////// */
 
 .loginDiv input {
     display: block;
     margin: 0 auto;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 30px;
+    text-align: center;
 }
 
 .loginDiv {
     border: 1px solid black;
-    width: 300px;
+    width: 500px;
     height: 400px;
     position: absolute;
-    right: 20px;
+    left: calc(50% - 250px);
     top: 100px;
     text-align: center;
+    padding-top: 50px;
+}
+#submitButton {
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#submitButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
 }
 
 /* /////////////// ABOUT DIV ///////////////////////// */
@@ -139,6 +235,7 @@ main {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    margin-top: 20px;
 }
 .addEvent h3 {
     text-align: center;
@@ -155,6 +252,7 @@ main {
     height: 40px;
     font-size: 15px;
     margin-left: 15px;
+    outline: none;
 }
 .dateRange input {
     /* display: block; */
@@ -167,15 +265,6 @@ main {
     text-align: center;
 }
 
-.addDateButton {
-    border: 1px solid black;
-    width: 150px;
-    padding: 3px;
-    cursor: pointer;
-    margin: 0 auto;
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
 .newDate {
     display: block;
 }
@@ -200,12 +289,23 @@ main {
 }
 
 /* /////////////////// EVENT PAGE //////////////////// */
+.nameLink {
+    text-decoration: none;
+    color: black;
+}
+
+.nameLink:hover {
+    color: red;
+    cursor: pointer;
+    transform: scale(1.1);
+}
 .eventsPageComponent {
     position: relative;
     top: 20px;
 }
 .eventList {
-    width: 700px;
+    width: 60%;
+    max-width: 1000px;
     margin: 0 auto;
 }
 .eachEvent {
@@ -235,14 +335,6 @@ main {
     color: white;
 }
 
-.dateAdd {
-    border: 1px solid black;
-    width: 400px;
-    visibility: hidden;
-}
-.dateAdd input {
-    display: block;
-}
 #calMonth {
     text-align: center;
     margin: 0 auto;
@@ -274,12 +366,29 @@ main {
 .citySelect {
     text-align: center;
 }
+
 .citySelect select {
     display: block;
     text-align: center;
     margin: 0px auto;
     margin-top: 10px;
     margin-bottom: 30px;
+    width: 100px;
+    color: black;
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
+    background-color: white;
+    outline: none;
+}
+
+.citySelect option {
+    display: block;
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    background-color: white;
 }
 .citiesIn {
     text-align: center;
@@ -295,8 +404,34 @@ main {
 .eventArtist {
     margin-left: 10px;
 }
+#addEventButton {
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#addEventButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
 
 /* ///////////////// EDIT EVENT PAGE ////////////////////// */
+#editEventButton {
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#editEventButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
 
 .editEvent {
     border: 1px solid black;
@@ -304,6 +439,7 @@ main {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    margin-top: 20px;
 }
 .editEvent h3 {
     text-align: center;
@@ -320,33 +456,84 @@ main {
     height: 40px;
     font-size: 15px;
     margin-left: 15px;
+    margin-bottom: 15px;
 }
 
 /* /////////////// SINGLE EVENT PAGE /////////////////// */
 .singleEventDiv img {
     max-width: 400px;
-    float: right;
+    position: absolute;
+    top: 100px;
+    right: 50px;
 }
 .singleEventDatesDiv {
-    border: 1px solid black;
-    width: 400px;
+    /* border: 1px solid black; */
+    max-width: 650px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 .singleDate {
     margin: 10px;
     border: 1px solid black;
     padding: 10px;
-    width: 150px;
+    /* height: 75px;
+    width: 150px; */
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    align-items: center;
 }
-.interestedButton {
+.singleDateGuest {
+    margin: 10px;
     border: 1px solid black;
-    width: 100px;
-    padding: 5px;
-    margin-left: 10px;
-    position: relative;
-    left: 30px;
+    padding: 10px;
+    /* height: 75px;
+    width: 150px; */
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    align-items: center;
+}
+
+.interestedButton {
+    display: block;
+    font-size: 12px;
+
+    color: black;
+    border: 1px solid black;
+    padding: 5px 15px;
+    text-decoration: none;
+    margin-bottom: 3px;
+    margin-left: 20px;
+}
+.interestedButton:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+.interestedButton:active {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    border: 1px solid red;
+}
+.eachDate {
+    float: left;
+}
+
+.eventInfo {
+    margin-bottom: 20px;
+}
+.detailDiv {
+    margin-top: 75px;
+    margin-left: 20px;
+    width: 500px;
+}
+.singleEventTitle {
+    margin-left: 20px;
 }
 
 /* ////////////// USER PROFILE /////////////////// */
@@ -365,8 +552,15 @@ main {
 .profilePicDiv img {
     /* max-height: 200px; */
 }
-
+.headlineProfile {
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: block;
+}
 /* ///////////////// USER ADDED EVENTS //////////////// */
+.userEventsDiv {
+    margin-top: 20px;
+}
 .userEventsContainer {
     /* width: 49%; */
     display: flex;
@@ -380,6 +574,7 @@ main {
     padding: 5px;
     text-align: center;
     margin-bottom: 10px;
+    align-content: space-around;
 }
 .userAddedPhoto {
     height: 100px;
@@ -387,11 +582,34 @@ main {
     object-fit: cover;
     object-position: center;
     max-width: 200px;
+    margin-bottom: 10px;
     /* float: left; */
     /* clear: both; */
 }
+.userEditButtons {
+    display: inline-block;
+    font-size: 12px;
+
+    color: black;
+    border: 1px solid black;
+    padding: 5px 15px;
+    text-decoration: none;
+    margin-bottom: 3px;
+}
+.userEditButtons:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+.imageButton.userEditButtons {
+    padding: 1px 15px;
+}
 
 /* ///////////// EVENTS INTERESTED IN /////////////// */
+.interestedEventsDiv {
+    margin-top: 20px;
+}
 .interestedContainer {
     /* width: 49%; */
     /* float: right; */
@@ -511,4 +729,90 @@ main {
 
 .hideButton {
     display: none;
+}
+
+#imageUploader {
+    width: 500px;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    padding: 50px;
+}
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    /* font-size: 12px */
+    color: black;
+    border: 1px solid black;
+    padding: 10px 15px;
+    text-decoration: none;
+    margin-bottom: 3px;
+
+    /* font-weight: 300; */
+
+    /* background-color: black; */
+    display: inline-block;
+    cursor: pointer;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: gray;
+    color: white;
+}
+/* //////////////// ADD DATES /////////////// */
+.addDatesDiv {
+    width: 500px;
+    border: 1px solid black;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+}
+.dateAdd {
+    border: 1px solid black;
+    width: 400px;
+    display: none;
+    /* visibility: hidden; */
+    margin: 0 auto;
+}
+.dateAdd input {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.addDateButton {
+    border: 1px solid black;
+    max-width: 250px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.editDatesButtons {
+    display: inline-block;
+    font-size: 12px;
+
+    color: black;
+    border: 1px solid black;
+    padding: 5px 15px;
+    text-decoration: none;
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+.editDatesButtons:hover {
+    background: grey;
+    color: white;
+    cursor: pointer;
+    /* text-decoration: underline; */
 }

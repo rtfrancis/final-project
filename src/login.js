@@ -32,24 +32,32 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="loginDiv">
+                <p className="headline">Welcome back</p>
                 <h2>Log in</h2>
 
                 <input
+                    autoComplete="off"
                     onChange={this.handleInput}
                     name="email"
                     type="text"
                     placeholder="email"
                 />
                 <input
+                    autoComplete="off"
                     onChange={this.handleInput}
                     name="password"
                     type="password"
                     placeholder="password"
                 />
+                <br />
+                <br />
+                <span id="submitButton" onClick={this.loginUser}>
+                    Submit
+                </span>
+                <br />
+                <br />
+                <br />
 
-                <button onClick={this.loginUser}>Submit</button>
-                <br />
-                <br />
                 <Link to="/welcome">Back to registration</Link>
             </div>
         );

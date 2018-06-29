@@ -55,6 +55,7 @@ class AddEvent extends React.Component {
                     <div>
                         Name of event <span className="requiredStar">*</span>:
                         <input
+                            autoComplete="off"
                             onChange={this.handleInput}
                             type="text"
                             name="name"
@@ -65,6 +66,7 @@ class AddEvent extends React.Component {
                         Host/Artist/Institution{" "}
                         <span className="requiredStar">*</span>:
                         <input
+                            autoComplete="off"
                             onChange={this.handleInput}
                             type="text"
                             name="host"
@@ -89,6 +91,7 @@ class AddEvent extends React.Component {
                         Date <span className="requiredStar">*</span>:
                         <span>
                             <input
+                                autoComplete="off"
                                 onChange={this.handleInput}
                                 type="date"
                                 name="date"
@@ -100,6 +103,7 @@ class AddEvent extends React.Component {
                     <div>
                         Language:
                         <input
+                            autoComplete="off"
                             onChange={this.handleInput}
                             type="text"
                             name="language"
@@ -108,6 +112,7 @@ class AddEvent extends React.Component {
                     <div>
                         Subtitles:
                         <input
+                            autoComplete="off"
                             onChange={this.handleInput}
                             type="text"
                             name="subtitles"
@@ -116,6 +121,7 @@ class AddEvent extends React.Component {
                     <div>
                         City <span className="requiredStar">*</span>:
                         <input
+                            autoComplete="off"
                             onChange={this.handleInput}
                             type="text"
                             name="city"
@@ -125,6 +131,7 @@ class AddEvent extends React.Component {
                     <div>
                         Url:
                         <input
+                            autoComplete="off"
                             onChange={this.handleInput}
                             type="url"
                             name="url"
@@ -141,7 +148,9 @@ class AddEvent extends React.Component {
                     <div className="addNotes" onClick={this.addNotes}>
                         + add notes
                     </div>
-                    <button
+                    <br />
+                    <span
+                        id="addEventButton"
                         onClick={e => {
                             e.preventDefault();
                             this.props.dispatch(
@@ -160,8 +169,9 @@ class AddEvent extends React.Component {
                         }}
                     >
                         Submit
-                    </button>
+                    </span>
                 </form>
+                <br />
                 <br />
                 <span className="requiredStar">*</span> indicates required field
             </div>

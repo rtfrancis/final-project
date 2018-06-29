@@ -12,11 +12,11 @@ class EditEventDates extends React.Component {
     }
     showAddDate() {
         const dateAddBox = document.querySelector(".dateAdd");
-        dateAddBox.style.visibility = "visible";
+        dateAddBox.style.display = "block";
     }
     hideAddDate() {
         const dateAddBox = document.querySelector(".dateAdd");
-        dateAddBox.style.visibility = "hidden";
+        dateAddBox.style.display = "none";
     }
     handleInput(e) {
         this[e.target.name] = e.target.value;
@@ -32,7 +32,7 @@ class EditEventDates extends React.Component {
             return null;
         }
         return (
-            <div>
+            <div className="addDatesDiv">
                 <h1>Dates:</h1>
                 {this.props.eventDates &&
                     this.props.eventDates.map(date => {
@@ -41,7 +41,8 @@ class EditEventDates extends React.Component {
                                 {new Date(date.event_date)
                                     .toUTCString()
                                     .slice(0, 12)}{" "}
-                                <button
+                                <span
+                                    className="editDatesButtons"
                                     onClick={e => {
                                         e.preventDefault();
                                         this.props.dispatch(
@@ -50,15 +51,14 @@ class EditEventDates extends React.Component {
                                     }}
                                 >
                                     Delete
-                                </button>
+                                </span>
                             </div>
                         );
                     })}
                 <div className="addDateButton" onClick={this.showAddDate}>
-                    Add another date
+                    +Add another date
                 </div>
                 <div className="dateAdd">
-                    Add date:
                     <input
                         onChange={this.handleInput}
                         ref={elem => {
@@ -68,7 +68,8 @@ class EditEventDates extends React.Component {
                         name="date"
                         required
                     />
-                    <button
+                    <span
+                        className="editDatesButtons"
                         onClick={() => {
                             this.props.dispatch(
                                 addDate({
@@ -80,13 +81,23 @@ class EditEventDates extends React.Component {
                         }}
                     >
                         Add
-                    </button>
-                    <button onClick={this.hideAddDate}>Done</button>
+                    </span>
+                    <span
+                        className="editDatesButtons"
+                        onClick={this.hideAddDate}
+                    >
+                        Done
+                    </span>
                 </div>
                 <p>
-                    <Link to="/profile">Return to profile</Link>
+                    <Link className="editDatesButtons" to="/profile">
+                        Return to profile
+                    </Link>
                 </p>
-                <Link to={`/event/${this.props.match.params.id}`}>
+                <Link
+                    className="editDatesButtons"
+                    to={`/event/${this.props.match.params.id}`}
+                >
                     Go to event page
                 </Link>
             </div>

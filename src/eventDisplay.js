@@ -16,16 +16,16 @@ class EventDisplay extends React.Component {
         this[e.target.name] = e.target.value;
         console.log(this.date);
     }
-    componentWillReceiveProps(nextProps) {
-        console.log("NEXT PROOOOPS!:", nextProps);
-        if (
-            nextProps.match &&
-            nextProps.match.params &&
-            nextProps.match.params.id != this.props.match.params.id
-        ) {
-            this.props.dispatch(eventDetails(nextProps.match.params.id));
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     console.log("NEXT PROOOOPS!:", nextProps);
+    //     if (
+    //         nextProps.match &&
+    //         nextProps.match.params &&
+    //         nextProps.match.params.id != this.props.match.params.id
+    //     ) {
+    //         this.props.dispatch(eventDetails(nextProps.match.params.id));
+    //     }
+    // }
     componentDidMount() {
         this.props.dispatch(eventDetails(this.props.match.params.id));
         this.props.dispatch(getMyLikedEvents());
@@ -37,29 +37,47 @@ class EventDisplay extends React.Component {
         }
         return (
             <div className="singleEventDiv">
-                <h1>{this.props.singleEvent.name}</h1>
+                <h1 className="singleEventTitle">
+                    {this.props.singleEvent.name}
+                </h1>
                 <img src={this.props.singleEvent.photo} />
-                <div>{this.props.singleEvent.name}</div>
-                <div>{this.props.singleEvent.artist}</div>
-                <div>{this.props.singleEvent.city}</div>
-                <div>{this.props.singleEvent.category}</div>
-                <div>{this.props.singleEvent.language}</div>
-                <div>{this.props.singleEvent.subtitles}</div>
-                <div>{this.props.singleEvent.notes}</div>
-                <div>
-                    <a href={this.props.singleEvent.url} target="_blank">
-                        {this.props.singleEvent.url}
-                    </a>
+                <div className="detailDiv">
+                    <div className="eventInfo">
+                        {this.props.singleEvent.artist}
+                    </div>
+                    <div className="eventInfo">
+                        {this.props.singleEvent.city}
+                    </div>
+                    <div className="eventInfo">
+                        {this.props.singleEvent.category}
+                    </div>
+                    <div className="eventInfo">
+                        {this.props.singleEvent.language}
+                    </div>
+                    <div className="eventInfo">
+                        {this.props.singleEvent.subtitles}
+                    </div>
+                    <div className="eventInfo">
+                        {this.props.singleEvent.notes}
+                    </div>
+                    <div className="eventInfo eventUrl">
+                        <a href={this.props.singleEvent.url} target="_blank">
+                            {this.props.singleEvent.url}
+                        </a>
+                    </div>
                 </div>
                 <div className="singleEventDatesDiv">
                     {this.props.dates &&
                         this.props.dates.map(date => {
                             return (
                                 <div className="singleDate" key={date.date_id}>
-                                    {new Date(date.event_date)
-                                        .toUTCString()
-                                        .slice(0, 12)}{" "}
-                                    <button
+                                    <span className="eachDate">
+                                        {new Date(date.event_date)
+                                            .toUTCString()
+                                            .slice(0, 12)}{" "}
+                                    </span>
+                                    <br />
+                                    <span
                                         className="interestedButton"
                                         ref={elem => {
                                             this.addText = elem;
@@ -76,7 +94,7 @@ class EventDisplay extends React.Component {
                                         }}
                                     >
                                         Add to your events
-                                    </button>
+                                    </span>
                                 </div>
                             );
                         })}
