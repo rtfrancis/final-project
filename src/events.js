@@ -12,8 +12,6 @@ class Events extends React.Component {
         this.props.dispatch(loggedInUser());
     }
     componentDidMount() {
-        // this.props.dispatch(getAllEvents());
-
         this.props.dispatch(getCities());
         this.props.dispatch(eventsByCity(this.props.loggedIn.city));
     }
@@ -95,7 +93,6 @@ class Events extends React.Component {
 }
 
 const getStateFromRedux = state => {
-    console.log("REDUX STATE IN EVENTS", state);
     return {
         events: state.events,
         cities: state.cities,

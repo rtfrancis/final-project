@@ -19,14 +19,7 @@ class ImagesUploader extends React.Component {
         const formData = new FormData();
         formData.append("file", e.target.files[0]);
         this.props.dispatch(uploadEventImage(formData, id));
-        // location.replace("/profile");
     }
-    // getInfo() {
-    //     const imageEvent = this.props.userEvents.filter(
-    //         events => events.id == this.props.match.params.id
-    //     );
-    //     return imageEvent;
-    // }
 
     componentDidMount() {}
 

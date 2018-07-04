@@ -5,7 +5,7 @@ const cookieSession = require("cookie-session");
 const db = require("./db.js");
 const csurf = require("csurf");
 const bodyParser = require("body-parser");
-
+const secrets = require("./secrets");
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
@@ -37,7 +37,7 @@ app.use(compression());
 app.use(require("cookie-parser")());
 
 const cookieSessionMiddleware = cookieSession({
-    secret: "I'm always hungry.",
+    secret: secrets.COOKIE_SECRET,
     maxAge: 1000 * 60 * 60 * 24 * 14
 });
 
@@ -81,7 +81,6 @@ app.post("/register", function(req, res) {
             );
         })
         .then(function(data) {
-            // console.log("userId is: ", data);
             req.session.userId = data.rows[0].id;
         })
         .then(function() {
@@ -125,13 +124,11 @@ app.post("/login", function(req, res) {
 
 app.get("/loggedininfo", function(req, res) {
     return db.loggedInUser(req.session.userId).then(({ rows }) => {
-        // console.log("coming from logged in", rows[0]);
         res.json(rows[0]);
     });
 });
 
 app.post("/addevent", function(req, res) {
-    // console.log(req.body);
     return db
         .addEvent(
             req.session.userId,
@@ -149,7 +146,6 @@ app.post("/addevent", function(req, res) {
         })
         .then(function() {
             db.getAllEvents().then(({ rows }) => {
-                console.log(rows);
                 res.json({
                     data: rows,
                     success: true
@@ -168,7 +164,6 @@ app.get("/allevents", function(req, res) {
     db
         .getAllEvents()
         .then(({ rows }) => {
-            // console.log(rows);
             res.json(rows);
         })
         .catch(function(err) {
@@ -179,8 +174,6 @@ app.get("/allevents", function(req, res) {
 app.get("/guestview", function(req, res) {
     Promise.all([db.getAllEvents(), db.getAllEventCities()])
         .then(function([events, cities]) {
-            console.log("EVENTS", events.rows);
-            console.log("CITIES", cities.rows);
             res.json({ events: events.rows, cities: cities.rows });
         })
         .catch(function(err) {
@@ -189,12 +182,9 @@ app.get("/guestview", function(req, res) {
 });
 
 app.get("/singleeventinfo/:id", function(req, res) {
-    console.log(req.params.id);
     return db
         .getEventDetails(req.params.id)
         .then(({ rows }) => {
-            console.log("single event results: ", rows);
-
             res.json({
                 single: rows[0],
                 dates: rows
@@ -209,7 +199,6 @@ app.get("/useruploadedevents", function(req, res) {
     return db
         .getUserUploadedEvents(req.session.userId)
         .then(({ rows }) => {
-            // console.log("RETURNED FROM USER EVENTS:", rows);
             res.json(rows);
         })
         .catch(function(err) {
@@ -221,7 +210,6 @@ app.post("/addeventdate", function(req, res) {
     return db
         .addDate(req.body.eventId, req.body.date)
         .then(({ rows }) => {
-            console.log("coming from add event date:", rows);
             res.json(rows[0]);
         })
         .catch(function(err) {
@@ -230,11 +218,9 @@ app.post("/addeventdate", function(req, res) {
 });
 
 app.get("/editeventdetails/:id", function(req, res) {
-    console.log("THIS IS THE ID: ", req.params.id);
     return db
         .getEventDetails(req.params.id)
         .then(({ rows }) => {
-            console.log("EDIT EVENT DETAILS:", rows[0]);
             res.json(rows[0]);
         })
         .catch(function(err) {
@@ -256,7 +242,6 @@ app.post("/editevent", function(req, res) {
             req.body.notes
         )
         .then(data => {
-            console.log(data);
             res.json({ success: true });
         })
         .catch(function(err) {
@@ -276,7 +261,6 @@ app.get("/eventdatesbyid/:id", function(req, res) {
 });
 
 app.get("/eventsbycity/:city", function(req, res) {
-    console.log(req.params.city);
     return db
         .eventsByCity(req.params.city)
         .then(({ rows }) => {
@@ -288,11 +272,9 @@ app.get("/eventsbycity/:city", function(req, res) {
 });
 
 app.post("/deleteeventdate", function(req, res) {
-    console.log(req.body);
     return db
         .deleteDate(req.body.id)
         .then(data => {
-            console.log(data);
             if (data) {
                 res.json({ success: true });
             }
@@ -313,7 +295,6 @@ app.post(
                 config.s3Url + req.file.filename
             )
             .then(function(result) {
-                console.log("This is RESULT", result);
                 if (result) {
                     res.json({ success: true });
                 }
@@ -335,7 +316,6 @@ app.post(
                 config.s3Url + req.file.filename
             )
             .then(function(result) {
-                console.log("This is RESULT", result);
                 if (result) {
                     res.json({ success: true });
                 }
@@ -363,7 +343,6 @@ app.post("/likethisevent", function(req, res) {
 });
 
 app.get("/eventsbydateandcity/:city/:date", function(req, res) {
-    console.log(req.body);
     return db
         .eventsByCityAndDate(req.params.city, req.params.date)
         .then(({ rows }) => {
@@ -379,7 +358,6 @@ app.get("/getlikedevents", function(req, res) {
     return db
         .getMyLikedEvents(req.session.userId)
         .then(({ rows }) => {
-            // console.log("TESTING:", rows);
             res.json(rows);
         })
         .catch(function(err) {
@@ -408,7 +386,6 @@ app.post("/deleteentireevent/:id", function(req, res) {
         db.deleteLikedEvents(req.params.id)
     ])
         .then(() => {
-            console.log("success");
             res.json({ success: true });
         })
         .catch(function(err) {
@@ -427,11 +404,9 @@ app.get("/getlistofcities", function(req, res) {
         });
 });
 app.get("/searchresults/search", function(req, res) {
-    // console.log(req.params.term);
     db
         .userSearch(req.query.q)
         .then(data => {
-            console.log(data.rows);
             res.json(data.rows);
         })
         .catch(err => {

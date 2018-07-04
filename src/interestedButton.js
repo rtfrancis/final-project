@@ -18,7 +18,6 @@ class InterestedButton extends React.Component {
                 buttonAction: this.addLike
             });
         } else {
-            // if (this.props.status != null) {
             const button = document.querySelector(".interestedButton");
             button.classList.add("hideButton");
         }

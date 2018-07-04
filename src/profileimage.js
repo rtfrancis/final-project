@@ -18,7 +18,6 @@ class ProfileImageUploader extends React.Component {
         const formData = new FormData();
         formData.append("file", e.target.files[0]);
         this.props.dispatch(uploadProfileImage(formData));
-        // location.replace("/profile");
     }
     render() {
         return (

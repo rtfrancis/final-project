@@ -90,7 +90,6 @@ class UserUploadedEvents extends React.Component {
 }
 
 const getStateFromRedux = state => {
-    console.log("Events state", state);
     return {
         userEvents: state.userEvents,
         eventDates: state.eventDates

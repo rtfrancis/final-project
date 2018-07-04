@@ -7,7 +7,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./reducers";
 import Welcome from "./welcome";
 import App from "./app";
-// import Login from "./login";
 
 const store = createStore(
     reducer,
@@ -29,7 +28,3 @@ if (location.pathname == "/welcome") {
 }
 
 ReactDOM.render(component, document.querySelector("main"));
-
-// function HelloWorld() {
-//     return <div>Hello, World!</div>;
-// }

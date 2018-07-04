@@ -1,5 +1,4 @@
 import React from "react";
-// import { connect } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import Login from "./login";
 import Registration from "./registration";

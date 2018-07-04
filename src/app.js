@@ -57,4 +57,3 @@ const getStateFromRedux = state => {
 };
 
 export default connect(getStateFromRedux)(App);
-// export default connect(getStateFromRedux)(App);

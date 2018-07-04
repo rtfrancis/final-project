@@ -44,6 +44,7 @@ class Search extends React.Component {
                         this.props.searchResults.map(result => {
                             return (
                                 <Link
+                                    key={result.id}
                                     onClick={() => {
                                         this.text.value = "";
                                         this.hideResults();
@@ -74,12 +75,10 @@ class Search extends React.Component {
 }
 
 const getStateFromRedux = state => {
-    console.log("getStateFromRedux IN SEARCH: ", state);
     return {
         searchResults: state.searchResults || [],
         noResults: state.noResults
     };
 };
 
-// export default connect(null)(Search);
 export default connect(getStateFromRedux)(Search);

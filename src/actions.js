@@ -11,7 +11,6 @@ export function loggedInUser() {
 
 export function getAllEvents() {
     return axios.get("/allevents").then(data => {
-        console.log("getting all events:", data);
         return {
             type: "ALL_EVENTS",
             events: data.data
@@ -20,9 +19,6 @@ export function getAllEvents() {
 }
 
 export function addEvent(newEvent) {
-    // console.log("testing", newEvent);
-    // const date = new Date(newEvent.date);
-    // console.log(date);
     return axios
         .post("/addevent", {
             name: newEvent.name,
@@ -36,10 +32,8 @@ export function addEvent(newEvent) {
             notes: newEvent.notes
         })
         .then(({ data }) => {
-            console.log("Getting back from DB: ", data);
             if (data.success) {
                 location.replace("/profile");
-                console.log("hey");
             } else {
                 throw new Error();
             }
@@ -52,7 +46,6 @@ export function addEvent(newEvent) {
 
 export function eventDetails(id) {
     return axios.get(`/singleeventinfo/${id}`).then(({ data }) => {
-        console.log("returned from single event", data);
         return {
             type: "INDIVIDUAL_EVENT",
             eventDetail: data.single,
@@ -62,14 +55,12 @@ export function eventDetails(id) {
 }
 
 export function addDate(obj) {
-    // console.log(obj);
     return axios
         .post("/addeventdate", {
             eventId: obj.eventId,
             date: obj.date
         })
         .then(({ data }) => {
-            console.log(data);
             return {
                 type: "ADDING_DATE",
                 data
@@ -78,9 +69,7 @@ export function addDate(obj) {
 }
 
 export function getEditEventDetails(id) {
-    console.log(id);
     return axios.get(`/editeventdetails/${id}`).then(({ data }) => {
-        console.log("EVENT DETAILS: ", data);
         return {
             type: "EVENT_TO_EDIT",
             eventDetails: data
@@ -90,7 +79,6 @@ export function getEditEventDetails(id) {
 
 export function getUserUploadedEvents() {
     return axios.get("/useruploadedevents").then(data => {
-        console.log(data);
         return {
             type: "USERS_EVENTS",
             userEvents: data.data
@@ -99,7 +87,6 @@ export function getUserUploadedEvents() {
 }
 
 export function editEvent(eventInfo) {
-    console.log("testing", eventInfo);
     return axios
         .post("/editevent", {
             id: eventInfo.id,
@@ -113,10 +100,8 @@ export function editEvent(eventInfo) {
             notes: eventInfo.notes
         })
         .then(({ data }) => {
-            console.log("Getting back from DB: ", data);
             if (data.success) {
                 location.replace("/profile");
-                console.log("hey");
             } else {
                 throw new Error();
             }
@@ -128,7 +113,6 @@ export function editEvent(eventInfo) {
 }
 
 export function updateEventForm(a, b) {
-    console.log("THIS IS E:", a, b);
     return {
         type: "UPDATING_EVENT_FORM",
         name: a,
@@ -137,9 +121,7 @@ export function updateEventForm(a, b) {
 }
 
 export function eventsByCity(city) {
-    console.log(city);
     return axios.get(`/eventsbycity/${city}`).then(({ data }) => {
-        console.log(data);
         return {
             type: "EVENTS_BY_CITY",
             data: data,
@@ -150,7 +132,6 @@ export function eventsByCity(city) {
 
 export function getCities() {
     return axios.get("/getlistofcities").then(({ data }) => {
-        console.log(data);
         return {
             type: "ALL_CITIES",
             data
@@ -160,7 +141,6 @@ export function getCities() {
 
 export function getEventDates(eventId) {
     return axios.get(`/eventdatesbyid/${eventId}`).then(({ data }) => {
-        console.log(data);
         return {
             type: "EVENT_DATES",
             data
@@ -169,9 +149,7 @@ export function getEventDates(eventId) {
 }
 
 export function deleteDate(dateId) {
-    console.log(dateId);
     return axios.post(`/deleteeventdate`, { id: dateId }).then(({ data }) => {
-        console.log(data);
         if (data.success) {
             return {
                 type: "DATE_DELETE",
@@ -182,7 +160,6 @@ export function deleteDate(dateId) {
 }
 export function uploadEventImage(formData, id) {
     return axios.post(`/uploadeventimage/${id}`, formData).then(({ data }) => {
-        console.log("TESTING TESTING:", data);
         if (data.success) {
             location.replace(`/event/${id}`);
             return {
@@ -194,7 +171,6 @@ export function uploadEventImage(formData, id) {
 
 export function uploadProfileImage(formData) {
     return axios.post("/uploadprofileimage", formData).then(({ data }) => {
-        console.log("TESTING TESTING:", data);
         if (data.success) {
             location.replace("/profile");
             return {
@@ -205,7 +181,6 @@ export function uploadProfileImage(formData) {
 }
 
 export function likeEvent(eventId, eventDate, dateId) {
-    console.log(eventId, eventDate);
     return axios
         .post("/likethisevent", {
             eventId: eventId,
@@ -213,7 +188,6 @@ export function likeEvent(eventId, eventDate, dateId) {
             dateId: dateId
         })
         .then(({ data }) => {
-            console.log(data);
             return {
                 type: "LIKE_EVENT",
                 data
@@ -223,7 +197,6 @@ export function likeEvent(eventId, eventDate, dateId) {
 
 export function getMyLikedEvents() {
     return axios.get("/getlikedevents").then(({ data }) => {
-        console.log(data);
         return {
             type: "LIKED_EVENTS",
             data
@@ -233,7 +206,6 @@ export function getMyLikedEvents() {
 
 export function deleteLikedEvent(id) {
     return axios.post(`/deletethislikedevent/${id}`).then(({ data }) => {
-        console.log(data);
         return {
             type: "LIKE_DELETED",
             id
@@ -242,7 +214,6 @@ export function deleteLikedEvent(id) {
 }
 
 export function deleteEvent(id) {
-    console.log(id);
     return axios.post(`/deleteentireevent/${id}`).then(({ data }) => {
         if (data.success) {
             return {
@@ -254,11 +225,9 @@ export function deleteEvent(id) {
 }
 
 export function eventsByDateAndCity(city, date) {
-    console.log("date and city", city, date);
     return axios
         .get(`/eventsbydateandcity/${city}/${date}`)
         .then(({ data }) => {
-            console.log(data);
             return {
                 type: "CITY_AND_DATE",
                 data
@@ -267,11 +236,9 @@ export function eventsByDateAndCity(city, date) {
 }
 
 export function searchField(search) {
-    console.log(search);
     return axios
         .get(`/searchresults/search?q=${encodeURIComponent(search)}`)
         .then(({ data }) => {
-            console.log("RESPONSE", data);
             return {
                 type: "SEARCH_FIELD",
                 results: data

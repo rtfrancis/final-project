@@ -57,7 +57,6 @@ input {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 #registrationButton {
@@ -71,7 +70,6 @@ input {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 #loginButton {
@@ -90,7 +88,6 @@ input {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 .addEventNav {
@@ -175,7 +172,6 @@ input {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 /* /////////////////GUEST EVENTS ////////////////////// */
@@ -214,7 +210,6 @@ input {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 /* /////////////// ABOUT DIV ///////////////////////// */
@@ -255,7 +250,6 @@ input {
     outline: none;
 }
 .dateRange input {
-    /* display: block; */
     text-align: center;
     margin-bottom: 5px;
 }
@@ -270,7 +264,6 @@ input {
 }
 
 .notes {
-    /* visibility: hidden; */
     display: none;
     outline: none;
 }
@@ -340,23 +333,20 @@ input {
     margin: 0 auto;
     cursor: pointer;
 }
+
 #navMonth {
     text-align: center;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
-#calPrev {
-}
-#calNext {
-}
+
 .eventCalendar {
-    /* float: right; */
     position: absolute;
     top: 10px;
     right: 30px;
-    /* border: 1px solid black; */
 }
+
 .calendarContainer td:hover {
     color: red;
     cursor: pointer;
@@ -390,6 +380,7 @@ input {
     margin-bottom: 30px;
     background-color: white;
 }
+
 .citiesIn {
     text-align: center;
 }
@@ -397,13 +388,16 @@ input {
 .eventsInName:hover {
     cursor: pointer;
 }
+
 .eventDate {
     margin-right: 20px;
     font-size: 20px;
 }
+
 .eventArtist {
     margin-left: 10px;
 }
+
 #addEventButton {
     border: 1px solid black;
     padding: 10px 15px;
@@ -411,14 +405,15 @@ input {
     margin-top: 30px;
     margin-bottom: 20px;
 }
+
 #addEventButton:hover {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 /* ///////////////// EDIT EVENT PAGE ////////////////////// */
+
 #editEventButton {
     border: 1px solid black;
     padding: 10px 15px;
@@ -430,7 +425,6 @@ input {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 .editEvent {
@@ -441,9 +435,11 @@ input {
     text-align: center;
     margin-top: 20px;
 }
+
 .editEvent h3 {
     text-align: center;
 }
+
 .editEvent input {
     height: 30px;
     width: 150px;
@@ -451,6 +447,7 @@ input {
     margin-left: 15px;
     margin-bottom: 15px;
 }
+
 .editEvent select {
     width: 150px;
     height: 40px;
@@ -460,37 +457,36 @@ input {
 }
 
 /* /////////////// SINGLE EVENT PAGE /////////////////// */
+
 .singleEventDiv img {
     max-width: 400px;
     position: absolute;
     top: 100px;
     right: 50px;
 }
+
 .singleEventDatesDiv {
-    /* border: 1px solid black; */
     max-width: 650px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
 .singleDate {
     margin: 10px;
     border: 1px solid black;
     padding: 10px;
-    /* height: 75px;
-    width: 150px; */
     display: flex;
     justify-content: space-between;
     width: 300px;
     align-items: center;
 }
+
 .singleDateGuest {
     margin: 10px;
     border: 1px solid black;
     padding: 10px;
-    /* height: 75px;
-    width: 150px; */
     display: flex;
     justify-content: space-between;
     width: 150px;
@@ -500,7 +496,6 @@ input {
 .interestedButton {
     display: block;
     font-size: 12px;
-
     color: black;
     border: 1px solid black;
     padding: 5px 15px;
@@ -508,18 +503,20 @@ input {
     margin-bottom: 3px;
     margin-left: 20px;
 }
+
 .interestedButton:hover {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
+
 .interestedButton:active {
     background: grey;
     color: white;
     cursor: pointer;
     border: 1px solid red;
 }
+
 .eachDate {
     float: left;
 }
@@ -527,47 +524,51 @@ input {
 .eventInfo {
     margin-bottom: 20px;
 }
+
 .detailDiv {
     margin-top: 75px;
     margin-left: 20px;
     width: 500px;
 }
+
 .singleEventTitle {
     margin-left: 20px;
 }
 
 /* ////////////// USER PROFILE /////////////////// */
+
 .userProfileDiv {
-    /* border-bottom: 1px solid black; */
-    /* height: 200px; */
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
+
 .profilePicDiv {
     float: right;
-    /* max-width: 200px; */
-    /* max-height: 200px; */
 }
+
 .profilePicDiv img {
     /* max-height: 200px; */
 }
+
 .headlineProfile {
     font-size: 20px;
     margin-bottom: 20px;
     display: block;
 }
+
 /* ///////////////// USER ADDED EVENTS //////////////// */
 .userEventsDiv {
     margin-top: 20px;
 }
+
 .userEventsContainer {
-    /* width: 49%; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
 .usersEvent {
     border: 1px solid black;
     width: 200px;
@@ -576,32 +577,31 @@ input {
     margin-bottom: 10px;
     align-content: space-around;
 }
+
 .userAddedPhoto {
     height: 100px;
-
     object-fit: cover;
     object-position: center;
     max-width: 200px;
     margin-bottom: 10px;
-    /* float: left; */
-    /* clear: both; */
 }
+
 .userEditButtons {
     display: inline-block;
     font-size: 12px;
-
     color: black;
     border: 1px solid black;
     padding: 5px 15px;
     text-decoration: none;
     margin-bottom: 3px;
 }
+
 .userEditButtons:hover {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }
+
 .imageButton.userEditButtons {
     padding: 1px 15px;
 }
@@ -611,9 +611,6 @@ input {
     margin-top: 20px;
 }
 .interestedContainer {
-    /* width: 49%; */
-    /* float: right; */
-
     position: relative;
     top: 0;
     display: flex;
@@ -621,6 +618,7 @@ input {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
 .eachInterestedEvent {
     border: 1px solid black;
     width: 200px;
@@ -632,14 +630,15 @@ input {
 .likedEventPhoto {
     height: 100px;
 }
+
 .profileComponentsContainer {
     display: flex;
     flex-direction: row;
 }
+
 #myOwnEvents {
     display: inline-block;
     width: 45%;
-    /* float: left; */
 }
 
 #myInterestedEvents {
@@ -648,6 +647,7 @@ input {
     position: relative;
     top: 0;
 }
+
 /* ///////////////////// APP COMPONENT ///////////////// */
 #featuredEvents {
     text-align: center;
@@ -723,6 +723,7 @@ input {
     text-decoration: inherit;
     font-style: italic;
 }
+
 .carouselArtist {
     font-weight: 300;
 }
@@ -739,6 +740,7 @@ input {
     text-align: center;
     padding: 50px;
 }
+
 .inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -749,16 +751,11 @@ input {
 }
 
 .inputfile + label {
-    /* font-size: 12px */
     color: black;
     border: 1px solid black;
     padding: 10px 15px;
     text-decoration: none;
     margin-bottom: 3px;
-
-    /* font-weight: 300; */
-
-    /* background-color: black; */
     display: inline-block;
     cursor: pointer;
 }
@@ -768,6 +765,7 @@ input {
     background-color: gray;
     color: white;
 }
+
 /* //////////////// ADD DATES /////////////// */
 .addDatesDiv {
     width: 500px;
@@ -777,19 +775,21 @@ input {
     text-align: center;
     padding: 20px;
 }
+
 .dateAdd {
     border: 1px solid black;
     width: 400px;
     display: none;
-    /* visibility: hidden; */
     margin: 0 auto;
 }
+
 .dateAdd input {
     display: block;
     margin: 0 auto;
     margin-bottom: 5px;
     margin-top: 5px;
 }
+
 .addDateButton {
     border: 1px solid black;
     max-width: 250px;
@@ -799,10 +799,10 @@ input {
     margin-top: 10px;
     margin-bottom: 15px;
 }
+
 .editDatesButtons {
     display: inline-block;
     font-size: 12px;
-
     color: black;
     border: 1px solid black;
     padding: 5px 15px;
@@ -810,9 +810,9 @@ input {
     margin-bottom: 5px;
     margin-left: 10px;
 }
+
 .editDatesButtons:hover {
     background: grey;
     color: white;
     cursor: pointer;
-    /* text-decoration: underline; */
 }

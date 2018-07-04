@@ -9,7 +9,6 @@ class EditEvent extends React.Component {
         this.addNotes = this.addNotes.bind(this);
     }
     handleInput(e) {
-        // this[e.target.name] = e.target.value;
         this.props.dispatch(updateEventForm(e.target.name, e.target.value));
     }
     addNotes() {

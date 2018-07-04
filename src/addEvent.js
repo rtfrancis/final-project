@@ -6,40 +6,9 @@ class AddEvent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        // this.addDate = this.addDate.bind(this);
         this.addNotes = this.addNotes.bind(this);
         this.handleInput = this.handleInput.bind(this);
-        // this.getDateFields = this.getDateFields.bind(this);
     }
-    // addDate() {
-    //     const dates = document.querySelector(".dateRange");
-    //     // const addButton = document.querySelector(".addDateButton");
-    //     // let deleteDate = document.createElement("div");
-    //     let newDate = document.createElement("span");
-    //     newDate.innerHTML = '<input type="date" name="date" />';
-    //     newDate.classList.add("newDate");
-    //     dates.appendChild(newDate);
-    // }
-    // getDateFields() {
-    //     console.log("date button");
-    //     const dateFields = [];
-    //     this.setState({
-    //         numDates: 1
-    //     });
-    //     let i = 0;
-    //     while (i < this.state.numDates) {
-    //         dateFields.push(
-    //             `<input
-    //             onChange={this.handleInput}
-    //             type="date"
-    //             name="date"
-    //             required
-    //         />`
-    //         );
-    //     }
-    //     console.log("dateFields", dateFields);
-    //     return dateFields;
-    // }
     addNotes() {
         const notes = document.querySelector(".notes");
         notes.style.display = "block";

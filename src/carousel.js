@@ -15,12 +15,10 @@ class Carousel extends React.Component {
         var isTransitioning;
         var timer;
         function carousel(next) {
-            // console.log(cur);
             isTransitioning = true;
             plays[cur].classList.remove("onscreen");
             plays[cur].classList.add("exit");
             dots[cur].classList.remove("active");
-            // isTransitioning = true;
             if (typeof next != "undefined") {
                 cur = next;
             } else {

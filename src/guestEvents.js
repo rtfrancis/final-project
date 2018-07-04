@@ -20,7 +20,6 @@ export default class guestEvents extends React.Component {
         });
     }
     componentDidMount() {
-        // this.props.dispatch(getAllEvents());
         console.log("TESTING");
         return axios.get("/guestview").then(({ data }) => {
             console.log(data);

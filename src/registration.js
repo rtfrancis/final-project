@@ -14,7 +14,6 @@ export default class Registration extends React.Component {
     }
     registerUser() {
         const { first, last, city, email, password, passwordConfirm } = this;
-        // console.log(first, last, email, password, passwordConfirm);
         if (password == passwordConfirm) {
             axios
                 .post("/register", {

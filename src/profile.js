@@ -29,7 +29,6 @@ class Profile extends React.Component {
 }
 
 const getStateFromRedux = state => {
-    console.log("STATE INSIDE PROFILE", state);
     return {
         loggedIn: state.loggedIn,
         dates: state.dates
